@@ -1,0 +1,153 @@
+# This file is the single source of truth for your project's metadata and tooling.
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bookspine"
+version = "0.1.0"
+description = "A tool for calculating book spine dimensions for printing"
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [
+    {name = "Book Publisher"},
+]
+license = {file = "LICENSE"}
+keywords = ["book", "spine", "calculator", "printing", "publishing"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Printing",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "pypdf>=3.0.0",
+    "PyYAML>=6.0.0",
+    "psutil>=5.9.0",
+]
+
+[project.optional-dependencies]
+# Dependencies for running the test suite
+test = [
+    "pytest",
+    "pytest-cov",
+    "pytest-asyncio"
+]
+# All tools needed for local development and quality checks
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-asyncio",
+    "black",
+    "ruff",
+    "mypy",
+    "bandit",
+    "ipdb",
+    "types-PyYAML",
+]
+
+[project.scripts]
+bookspine = "bookspine.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["bookspine"]
+
+# --- THIS IS THE CORRECTED ENVIRONMENT CONFIGURATION ---
+[tool.hatch.envs.default]
+# This `extras` key tells Hatch to install all dependencies from the
+# `dev` and `test` groups defined in [project.optional-dependencies].
+# Hatch automatically includes the project itself ('bookspine') in editable mode.
+extras = ["dev"]
+path = ".venv"
+installer = "uv"
+python = "3.12"
+with-pip = true
+
+[tool.hatch.envs.default.scripts]
+check-updates = "uv tree -U"
+update-pip = "uv pip install --upgrade $(uv pip freeze | cut -d'=' -f1)"
+test = "pytest {args:tests/}"
+test-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=bookspine {args:.}"
+lint = "ruff check {args:.}"
+lint-fix = "ruff check --fix {args:.}"
+style = "black --check --diff {args:.}"
+typing = "mypy {args:.}"
+
+[tool.ruff]
+exclude = [
+    ".bzr", ".direnv", ".eggs", ".git", ".hg", ".mypy_cache", ".nox", ".pants.d",
+    ".ruff_cache", ".svn", ".tox", ".venv", "__pypackages__", "_build", "buck-out",
+    "build", "dist", "node_modules", "venv", "venv_pdf_debug",
+]
+line-length = 120
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B", "C4", "UP"]
+ignore = ["F401", "F541", "E501", "B008", "B904"]
+fixable = ["ALL"]
+unfixable = []
+[tool.ruff.lint.isort]
+known-first-party = ["bookspine"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+exclude = ["^venv/", "^build/", "^dist/"]
+no_implicit_optional = false
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+[[tool.mypy.overrides]]
+module = ["typer.*", "openai.*", "anthropic.*", "google.generativeai.*", "fpdf.*", "pick.*", "yaml.*", "markdown.*", "tests.*", "untyped_package.*"]
+ignore_missing_imports = true
+ignore_errors = true
+follow_imports = "skip"
+follow_untyped_imports = true
+
+[tool.coverage.run]
+source = ["bookspine"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/build/*",
+    "*/dist/*",
+    "*/migrations/*",
+    "*/mypy_cache/*",
+    "*/ruff_cache/*",
+    "*/pytest_cache/*",
+    "*/coverage/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "raise ImportError",
+    "except ImportError:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "tests/htmlcov"

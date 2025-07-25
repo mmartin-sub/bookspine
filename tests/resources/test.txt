@@ -1,0 +1,10 @@
+This is a test file for the KTE (Keyword Theme Extraction) module.
+
+It contains various topics and themes that can be extracted:
+- Machine learning and artificial intelligence
+- Data science and analytics
+- Software development and programming
+- Cloud computing and infrastructure
+- Cybersecurity and privacy
+
+The file is designed to test the keyword extraction functionality with multiple themes and topics that should be identifiable by the extraction algorithms.

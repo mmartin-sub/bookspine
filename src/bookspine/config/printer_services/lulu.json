@@ -1,0 +1,32 @@
+{
+  "name": "lulu",
+  "description": "Lulu.com print-on-demand service configuration",
+  "paper_bulk": {
+    "MCG": 0.80,
+    "MCS": 0.90,
+    "ECB": 1.20,
+    "OFF": 1.22
+  },
+  "cover_thickness": {
+    "Softcover Perfect Bound": 0.5,
+    "Hardcover Casewrap": 2.0,
+    "Hardcover Linen": 3.0
+  },
+  "formulas": {
+    "Softcover Perfect Bound": {
+      "type": "pages_per_inch",
+      "params": {
+        "pages_per_inch": 444,
+        "base_thickness": 0.06
+      }
+    },
+    "Hardcover Casewrap": {
+      "type": "general",
+      "params": {}
+    },
+    "Hardcover Linen": {
+      "type": "general",
+      "params": {}
+    }
+  }
+}

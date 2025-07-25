@@ -1,0 +1,111 @@
+name: Security Scan
+
+on:
+  schedule:
+    # Run every Wednesday at 10 AM UTC
+    - cron: '0 10 * * 3'
+  workflow_dispatch:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install UV
+      uses: astral-sh/setup-uv@v1
+      with:
+        version: "latest"
+
+    - name: Install Hatch
+      run: uv tool install hatch
+
+    - name: Create Hatch environment
+      run: hatch env create
+
+    - name: Run Bandit security scan
+      run: |
+        uv pip install bandit
+        bandit -r bookspine/ -f json -o bandit-report.json || true
+        bandit -r bookspine/ -f txt -o bandit-report.txt || true
+
+    - name: Run Safety vulnerability check
+      run: |
+        uv pip install safety
+        safety check --json --output safety-report.json || true
+        safety check --output safety-report.txt || true
+
+    - name: Run Trivy vulnerability scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload security reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-reports-${{ github.run_number }}
+        path: |
+          bandit-report.json
+          bandit-report.txt
+          safety-report.json
+          safety-report.txt
+          trivy-results.sarif
+
+    - name: Create security issue if vulnerabilities found
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+
+          // Check if security issue already exists
+          const existingIssues = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            labels: ['security']
+          });
+
+          const hasSecurityIssue = existingIssues.data.some(issue =>
+            issue.title.includes('Security Vulnerabilities Detected')
+          );
+
+          if (!hasSecurityIssue) {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Security Vulnerabilities Detected',
+              body: `## Security Vulnerabilities Detected
+
+              The security scan has detected potential vulnerabilities in the codebase.
+
+              ### Next Steps
+              1. Review the security reports in the workflow artifacts
+              2. Address any critical vulnerabilities
+              3. Update dependencies if needed
+              4. Re-run security scans after fixes
+
+              ### Security Reports Available
+              - Bandit scan results
+              - Safety vulnerability check
+              - Trivy vulnerability scan
+
+              This issue was automatically created by the security workflow.`,
+              labels: ['security', 'automated', 'high-priority']
+            });
+          }

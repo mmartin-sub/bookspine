@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install UV
+      uses: astral-sh/setup-uv@v1
+      with:
+        version: "latest"
+
+    - name: Install Hatch
+      run: uv tool install hatch
+
+    - name: Create Hatch environment
+      run: hatch env create
+
+    - name: Build package
+      run: hatch build
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/bookspine-${{ github.ref_name }}.tar.gz
+        asset_name: bookspine-${{ github.ref_name }}.tar.gz
+        asset_content_type: application/gzip
+
+    - name: Upload Wheel Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/bookspine-${{ github.ref_name }}-py3-none-any.whl
+        asset_name: bookspine-${{ github.ref_name }}-py3-none-any.whl
+        asset_content_type: application/zip

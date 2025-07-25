@@ -1,0 +1,19 @@
+This is a sample text file for testing the BookSpine project.
+
+The BookSpine project is a comprehensive tool for calculating book spine dimensions and extracting keywords from book content. It provides both spine calculation functionality and keyword theme extraction capabilities.
+
+Key features include:
+- PDF page count extraction
+- Spine width calculation based on paper type and binding
+- Keyword extraction using KeyBERT
+- Support for multiple file formats (PDF, Markdown, Text)
+- Header weighting for improved keyword relevance
+- Multi-word phrase prioritization
+
+The project uses modern Python technologies including:
+- PyPDF for PDF processing
+- KeyBERT for keyword extraction
+- Sentence transformers for semantic understanding
+- NLTK for text preprocessing
+
+This text file serves as a test resource for validating text processing capabilities across different file formats and content types.

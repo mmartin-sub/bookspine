@@ -1,0 +1,38 @@
+{
+  "name": "default",
+  "description": "Default printer service configuration",
+  "paper_bulk": {
+    "MCG": 0.80,
+    "MCS": 0.90,
+    "ECB": 1.20,
+    "OFF": 1.22
+  },
+  "cover_thickness": {
+    "Softcover Perfect Bound": 0.5,
+    "Hardcover Casewrap": 2.0,
+    "Hardcover Linen": 3.0
+  },
+  "formulas": {
+    "Softcover Perfect Bound": {
+      "type": "general",
+      "params": {}
+    },
+    "Hardcover Casewrap": {
+      "type": "fixed_ranges",
+      "params": {
+        "ranges": [
+          {"min_pages": 24, "max_pages": 84, "width_inches": 0.25},
+          {"min_pages": 85, "max_pages": 140, "width_inches": 0.5},
+          {"min_pages": 141, "max_pages": 200, "width_inches": 0.75},
+          {"min_pages": 201, "max_pages": 300, "width_inches": 1.0},
+          {"min_pages": 301, "max_pages": 400, "width_inches": 1.25},
+          {"min_pages": 401, "max_pages": 500, "width_inches": 1.5}
+        ]
+      }
+    },
+    "Hardcover Linen": {
+      "type": "general",
+      "params": {}
+    }
+  }
+}

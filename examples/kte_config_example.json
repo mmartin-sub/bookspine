@@ -1,0 +1,37 @@
+{
+  "extraction_options": {
+    "max_keywords": 20,
+    "min_relevance": 0.1,
+    "header_weight_factor": 1.5,
+    "prefer_phrases": true,
+    "language": "english"
+  },
+  "examples": {
+    "basic_extraction": {
+      "description": "Basic keyword extraction with default settings",
+      "command": "bookspine extract --file document.md"
+    },
+    "custom_options": {
+      "description": "Extraction with custom parameters",
+      "command": "bookspine extract --file document.md --max-keywords 15 --min-relevance 0.3 --header-weight-factor 2.0"
+    },
+    "text_input": {
+      "description": "Extract keywords from direct text input",
+      "command": "bookspine extract --text \"Your book content here...\""
+    },
+    "json_output": {
+      "description": "Save results to JSON file",
+      "command": "bookspine extract --file document.md --format json --output-file keywords.json"
+    }
+  },
+  "supported_formats": [
+    ".md",
+    ".markdown",
+    ".txt",
+    ".pdf"
+  ],
+  "output_formats": [
+    "text",
+    "json"
+  ]
+}

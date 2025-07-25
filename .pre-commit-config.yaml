@@ -1,0 +1,105 @@
+---
+default_language_version:
+    python: python3.12
+repos:
+    # Standard Python checks
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v5.0.0
+      hooks:
+        - id: trailing-whitespace
+          exclude: ^(docs/|projects/|templates/|\.history/|downloaded_fonts/)
+        - id: end-of-file-fixer
+          exclude: ^(docs/|projects/|templates/|\.history/|downloaded_fonts/)
+        - id: check-yaml
+          exclude: ^(docs/|projects/|templates/|\.history/|templates/metadata\.yaml|templates/config-metadata\.yaml)
+        - id: check-toml
+        - id: check-json
+          exclude: ^(docs/|projects/|templates/|\.history/|\.vscode/)
+        - id: check-added-large-files
+          args: [--maxkb=1000]
+        - id: check-merge-conflict
+        - id: debug-statements
+          exclude: ^(docs/|projects/|templates/|\.history/)
+        - id: check-docstring-first
+          exclude: ^(docs/|projects/|templates/|\.history/)
+        - id: check-executables-have-shebangs
+
+    # Ruff for linting and formatting
+    - repo: https://github.com/astral-sh/ruff-pre-commit
+      rev: v0.12.5
+      hooks:
+        - id: ruff
+          args: [--fix]
+        - id: ruff-format
+
+    # Secrets detection
+    # running baseline with:
+    # pre-commit run detect-secrets --all-files > .secrets.baseline
+    - repo: https://github.com/Yelp/detect-secrets
+      rev: v1.5.0
+      hooks:
+        - id: detect-secrets
+          args: [--baseline, .secrets.baseline]
+          exclude: ^(docs/|projects/|templates/|\.history/|\.secrets\.baseline)
+
+    # Jupyter Notebook clean-up
+    - repo: https://github.com/kynan/nbstripout
+      rev: 0.8.1
+      hooks:
+        - id: nbstripout
+          exclude: ^(docs/|projects/|templates/|\.history/)
+
+    # Type checking
+    - repo: local
+      hooks:
+        - id: mypy
+          name: mypy
+          entry: mypy
+          language: python
+          language_version: python3.12
+          additional_dependencies: [mypy]
+          types: [python]
+          args: [--config-file=mypy.ini, src/bookspine/, src/kte/]
+          pass_filenames: false
+          always_run: true
+
+    # Security checks
+    - repo: https://github.com/PyCQA/bandit
+      rev: 1.8.6
+      hooks:
+        - id: bandit
+          language: python
+          language_version: python3.12
+          args: [-c, .bandit]
+          exclude: ^(docs/|projects/|templates/|\.history/|examples/)
+
+    # Documentation checks
+    - repo: https://github.com/igorshubovych/markdownlint-cli
+      rev: v0.45.0
+      hooks:
+        - id: markdownlint
+          exclude: ^(.kiro/|docs/|projects/|templates/|\.history/)
+          args: [--fix]
+          language_version: "22.17.1"
+
+    # Custom Pydantic v1 check
+    - repo: local
+      hooks:
+        - id: pydantic-v1-check
+          name: Check for Pydantic v1 syntax
+          entry: python scripts/check_pydantic_v1.py
+          language: python
+          files: \.py$
+          pass_filenames: true
+          description: "Prevent Pydantic v1 syntax from being committed"
+
+#  # Fast tests (optional - uncomment if you want tests to run on commit)
+#  - repo: local
+#    hooks:
+#      - id: pytest-fast
+#        name: pytest-fast
+#        entry: pytest
+#        language: system
+#        args: ['-x', '--tb=short', 'tests/']
+#        pass_filenames: false
+#        always_run: true

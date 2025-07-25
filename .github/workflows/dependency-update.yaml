@@ -1,0 +1,82 @@
+name: Dependency Update
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check-updates:
+    name: Check for dependency updates
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install UV
+      uses: astral-sh/setup-uv@v1
+      with:
+        version: "latest"
+
+    - name: Install Hatch
+      run: uv tool install hatch
+
+    - name: Create Hatch environment
+      run: hatch env create
+
+    - name: Check for outdated dependencies
+      run: |
+        echo "Checking for outdated dependencies..."
+        hatch run check-updates
+        echo "Dependency check completed."
+
+    - name: Create issue for updates
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+
+          // Check if issue already exists
+          const existingIssues = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            labels: ['dependencies']
+          });
+
+          const hasDependencyIssue = existingIssues.data.some(issue =>
+            issue.title.includes('Dependency Updates Available')
+          );
+
+          if (!hasDependencyIssue) {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Dependency Updates Available',
+              body: `## Dependency Updates Available
+
+              The weekly dependency check has found outdated dependencies.
+
+              ### Next Steps
+              1. Review the outdated dependencies
+              2. Update dependencies as needed
+              3. Run tests to ensure compatibility
+              4. Create a pull request with updates
+
+              ### To check updates locally:
+              \`\`\`bash
+              hatch run check-updates
+              \`\`\`
+
+              This issue was automatically created by the dependency update workflow.`,
+              labels: ['dependencies', 'automated']
+            });
+          }

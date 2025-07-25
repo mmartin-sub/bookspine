@@ -1,0 +1,40 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Testing
+.coverage
+tests/htmlcov/
+.pytest_cache/
+.tox/
+
+# Development tools
+.mypy_cache/
+.ruff_cache/
+
+# UV and Hatch
+.uv/
+.hatch/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
