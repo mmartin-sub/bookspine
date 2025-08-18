@@ -136,6 +136,7 @@ omit = [
     "*/pytest_cache/*",
     "*/coverage/*",
 ]
+relative_files = true
 
 [tool.coverage.report]
 exclude_lines = [
