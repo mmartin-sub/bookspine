@@ -50,13 +50,20 @@ dev = [
     "pytest",
     "pytest-cov",
     "pytest-asyncio",
+
     "black",
     "ruff",
     "mypy",
     "bandit",
+
+    "toml", # needed to generate the stubs
+    "packaging", # Add this line
+    "requests", # part of the std deps but still needed for dev
+
     "ipdb",
     "types-PyYAML",
     "types-Markdown",
+    "types-toml",
 ]
 
 [project.scripts]
@@ -88,21 +95,43 @@ typing = "mypy {args:.}"
 cleanup = "python cleanup.py"
 download-models = "python scripts/download_models.py"
 
+
+# This script cleans and regenerates all type stubs.
+# Usage: hatch run stubs:update
+# Checks for community-maintained stubs on PyPI
+stubs-check = "python scripts/update-stubs.py check"
+
+# --i.e. hatch run python scripts/update-stubs.py generate --only autogen_agentchat
+# generate is too broad and some libs are causing issues
+stubs-generate = "python scripts/update-stubs.py generate"
+
 [tool.ruff]
 exclude = [
     ".bzr", ".direnv", ".eggs", ".git", ".hg", ".mypy_cache", ".nox", ".pants.d",
     ".ruff_cache", ".svn", ".tox", ".venv", "__pypackages__", "_build", "buck-out",
-    "build", "dist", "node_modules", "venv", "venv_pdf_debug",
+    "build", "dist", "node_modules", "venv", "stubs"
 ]
 line-length = 120
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "W", "B", "C4", "UP"]
 ignore = ["F401", "F541", "E501", "B008", "B904"]
 fixable = ["ALL"]
 unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["B007", "B017", "F841",  "F401", "E501", "RUF002", "RUF003"]
+"examples/**/*.py" = ["B007", "B017", "F841",  "F401", "E501", "RUF002", "RUF003"]
+"scripts/**/*.py" = ["B007", "B017", "F841",  "F401", "E501"]
+"docs/examples/**/*.py" = ["B007", "B017", "F841",  "F401", "E501", "RUF002", "RUF003"]
+"**/__init__.py" = ["F401"]
+
+"stubs/**/*.py*" = ["B007", "B017", "F841",  "F401", "E501", "RUF002", "RUF003", "F405"] # should not be tested
+
 [tool.ruff.lint.isort]
 known-first-party = ["src"]
 section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
@@ -114,6 +143,7 @@ exclude = ["^venv/", "^build/", "^dist/"]
 no_implicit_optional = false
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
+
 [[tool.mypy.overrides]]
 module = ["typer.*", "openai.*", "anthropic.*", "google.generativeai.*", "fpdf.*", "pick.*", "yaml.*", "markdown.*", "tests.*", "untyped_package.*"]
 ignore_missing_imports = true
