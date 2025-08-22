@@ -58,3 +58,6 @@ package-lock.json text merge=npm-merge-driver
 
 # for the stubs we can generate
 stubs/** linguist-generated=true -diff -merge
+
+# git config --global merge.ours.driver true
+uv.lock merge=ours
