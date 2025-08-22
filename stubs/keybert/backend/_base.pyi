@@ -18,7 +18,7 @@ class BaseEmbedder:
     """
     def __init__(self, embedding_model=..., word_embedding_model=...) -> None:
         ...
-    
+
     def embed(self, documents: List[str], verbose: bool = ...) -> np.ndarray:
         """Embed a list of n documents/words into an n-dimensional matrix of embeddings.
 
@@ -31,6 +31,3 @@ class BaseEmbedder:
             that each have an embeddings size of `m`
         """
         ...
-    
-
-

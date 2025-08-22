@@ -134,4 +134,3 @@ def nums_next(key: NumberObject, nums: ArrayObject) -> Tuple[Optional[NumberObje
 
     """
     ...
-

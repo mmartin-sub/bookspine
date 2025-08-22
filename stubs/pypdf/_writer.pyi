@@ -53,7 +53,7 @@ class PdfWriter(PdfDocCommon):
     """
     def __init__(self, fileobj: Union[None, PdfReader, StrByteType, Path] = ..., clone_from: Union[None, PdfReader, StrByteType, Path] = ..., incremental: bool = ..., full: bool = ...) -> None:
         ...
-    
+
     @property
     def is_encrypted(self) -> bool:
         """
@@ -63,7 +63,7 @@ class PdfWriter(PdfDocCommon):
         :meth:`decrypt()<pypdf.PdfReader.decrypt>` method is called.
         """
         ...
-    
+
     @property
     def root_object(self) -> DictionaryObject:
         """
@@ -74,33 +74,33 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     @property
     def xmp_metadata(self) -> Optional[XmpInformation]:
         """XMP (Extensible Metadata Platform) data."""
         ...
-    
+
     @xmp_metadata.setter
     def xmp_metadata(self, value: Optional[XmpInformation]) -> None:
         """XMP (Extensible Metadata Platform) data."""
         ...
-    
+
     @property
     def with_as_usage(self) -> bool:
         ...
-    
+
     @with_as_usage.setter
     def with_as_usage(self, value: bool) -> None:
         ...
-    
+
     def __enter__(self) -> PdfWriter:
         """Store how writer is initialized by 'with'."""
         ...
-    
+
     def __exit__(self, exc_type: Optional[Type[BaseException]], exc: Optional[BaseException], traceback: Optional[TracebackType]) -> None:
         """Write data to the fileobj."""
         ...
-    
+
     @property
     def pdf_header(self) -> str:
         """
@@ -113,14 +113,14 @@ class PdfWriter(PdfDocCommon):
         Note: `pdf_header` returns a string but accepts bytes or str for writing
         """
         ...
-    
+
     @pdf_header.setter
     def pdf_header(self, new_header: Union[str, bytes]) -> None:
         ...
-    
+
     def get_object(self, indirect_reference: Union[int, IndirectObject]) -> PdfObject:
         ...
-    
+
     def set_need_appearances_writer(self, state: bool = ...) -> None:
         """
         Sets the "NeedAppearances" flag in the PDF writer.
@@ -137,10 +137,10 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def create_viewer_preferences(self) -> ViewerPreferences:
         ...
-    
+
     def add_page(self, page: PageObject, excluded_keys: Iterable[str] = ...) -> PageObject:
         """
         Add a page to this PDF file.
@@ -160,7 +160,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def insert_page(self, page: PageObject, index: int = ..., excluded_keys: Iterable[str] = ...) -> PageObject:
         """
         Insert a page in this PDF file. The page is usually acquired from a
@@ -176,7 +176,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def add_blank_page(self, width: Optional[float] = ..., height: Optional[float] = ...) -> PageObject:
         """
         Append a blank page to this PDF file and return it.
@@ -198,7 +198,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def insert_blank_page(self, width: Optional[Union[float, decimal.Decimal]] = ..., height: Optional[Union[float, decimal.Decimal]] = ..., index: int = ...) -> PageObject:
         """
         Insert a blank page to this PDF file and return it.
@@ -221,15 +221,15 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     @property
     def open_destination(self) -> Union[None, Destination, TextStringObject, ByteStringObject]:
         ...
-    
+
     @open_destination.setter
     def open_destination(self, dest: Union[None, str, Destination, PageObject]) -> None:
         ...
-    
+
     def add_js(self, javascript: str) -> None:
         """
         Add JavaScript which will launch upon opening this PDF.
@@ -242,7 +242,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def add_attachment(self, filename: str, data: Union[str, bytes]) -> EmbeddedFile:
         """
         Embed a file inside the PDF.
@@ -260,7 +260,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def append_pages_from_reader(self, reader: PdfReader, after_page_append: Optional[Callable[[PageObject], None]] = ...) -> None:
         """
         Copy pages from reader to writer. Includes an optional callback
@@ -281,7 +281,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     FFBITS_NUL = ...
     def update_page_form_field_values(self, page: Union[PageObject, List[PageObject], None], fields: Dict[str, Union[str, List[str], Tuple[str, str, float]]], flags: FA.FfBits = ..., auto_regenerate: Optional[bool] = ..., flatten: bool = ...) -> None:
         """
@@ -315,7 +315,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def reattach_fields(self, page: Optional[PageObject] = ...) -> List[DictionaryObject]:
         """
         Parse annotations within the page looking for orphan fields and
@@ -330,7 +330,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def clone_reader_document_root(self, reader: PdfReader) -> None:
         """
         Copy the reader document root to the writer and all sub-elements,
@@ -342,7 +342,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def clone_document_from_reader(self, reader: PdfReader, after_page_append: Optional[Callable[[PageObject], None]] = ...) -> None:
         """
         Create a copy (clone) of a document from a PDF file reader cloning
@@ -360,7 +360,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def generate_file_identifiers(self) -> None:
         """
         Generate an identifier for the PDF that will be written.
@@ -374,7 +374,7 @@ class PdfWriter(PdfDocCommon):
         see §14.4 "File Identifiers".
         """
         ...
-    
+
     def encrypt(self, user_password: str, owner_password: Optional[str] = ..., use_128bit: bool = ..., permissions_flag: UserAccessPermissions = ..., *, algorithm: Optional[str] = ...) -> None:
         """
         Encrypt this PDF file with the PDF Standard encryption handler.
@@ -401,10 +401,10 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def write_stream(self, stream: StreamType) -> None:
         ...
-    
+
     def write(self, stream: Union[Path, StrByteType]) -> Tuple[bool, IO[Any]]:
         """
         Write the collection of pages added to this object out as a PDF file.
@@ -420,7 +420,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def list_objects_in_increment(self) -> List[IndirectObject]:
         """
         For analysis or debugging.
@@ -433,7 +433,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     @property
     def metadata(self) -> Optional[DocumentInformation]:
         """
@@ -448,11 +448,11 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     @metadata.setter
     def metadata(self, value: Optional[Union[DocumentInformation, DictionaryObject, Dict[Any, Any]]]) -> None:
         ...
-    
+
     def add_metadata(self, infos: Dict[str, Any]) -> None:
         """
         Add custom metadata to the output.
@@ -463,7 +463,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def compress_identical_objects(self, remove_identicals: bool = ..., remove_orphans: bool = ...) -> None:
         """
         Parse the PDF file and merge objects that have the same hash.
@@ -476,13 +476,13 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def get_reference(self, obj: PdfObject) -> IndirectObject:
         ...
-    
+
     def get_outline_root(self) -> TreeObject:
         ...
-    
+
     def get_threads_root(self) -> ArrayObject:
         """
         The list of threads.
@@ -495,7 +495,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     @property
     def threads(self) -> ArrayObject:
         """
@@ -507,13 +507,13 @@ class PdfWriter(PdfDocCommon):
         information about the thread in ``/I`` or ``/Metadata`` keys.
         """
         ...
-    
+
     def add_outline_item_destination(self, page_destination: Union[IndirectObject, PageObject, TreeObject], parent: Union[None, TreeObject, IndirectObject] = ..., before: Union[None, TreeObject, IndirectObject] = ..., is_open: bool = ...) -> IndirectObject:
         ...
-    
+
     def add_outline_item_dict(self, outline_item: OutlineItemType, parent: Union[None, TreeObject, IndirectObject] = ..., before: Union[None, TreeObject, IndirectObject] = ..., is_open: bool = ...) -> IndirectObject:
         ...
-    
+
     def add_outline_item(self, title: str, page_number: Union[None, PageObject, IndirectObject, int], parent: Union[None, TreeObject, IndirectObject] = ..., before: Union[None, TreeObject, IndirectObject] = ..., color: Optional[Union[Tuple[float, float, float], str]] = ..., bold: bool = ..., italic: bool = ..., fit: Fit = ..., is_open: bool = ...) -> IndirectObject:
         """
         Add an outline item (commonly referred to as a "Bookmark") to the PDF file.
@@ -535,23 +535,23 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def add_outline(self) -> None:
         ...
-    
+
     def add_named_destination_array(self, title: TextStringObject, destination: Union[IndirectObject, ArrayObject]) -> None:
         ...
-    
+
     def add_named_destination_object(self, page_destination: PdfObject) -> IndirectObject:
         ...
-    
+
     def add_named_destination(self, title: str, page_number: int) -> IndirectObject:
         ...
-    
+
     def remove_links(self) -> None:
         """Remove links and annotations from this output."""
         ...
-    
+
     def remove_annotations(self, subtypes: Optional[Union[AnnotationSubtype, Iterable[AnnotationSubtype]]]) -> None:
         """
         Remove annotations by annotation subtype.
@@ -564,7 +564,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def remove_objects_from_page(self, page: Union[PageObject, DictionaryObject], to_delete: Union[ObjectDeletionFlag, Iterable[ObjectDeletionFlag]], text_filters: Optional[Dict[str, Any]] = ...) -> None:
         """
         Remove objects specified by ``to_delete`` from the given page.
@@ -580,7 +580,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def remove_images(self, to_delete: ImageType = ...) -> None:
         """
         Remove images from this output.
@@ -591,7 +591,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def remove_text(self, font_names: Optional[List[str]] = ...) -> None:
         """
         Remove text from the PDF.
@@ -601,7 +601,7 @@ class PdfWriter(PdfDocCommon):
                 Optional. If not specified, all text will be removed.
         """
         ...
-    
+
     def add_uri(self, page_number: int, uri: str, rect: RectangleObject, border: Optional[ArrayObject] = ...) -> None:
         """
         Add an URI from a rectangular area to the specified page.
@@ -619,7 +619,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     _valid_layouts = ...
     def set_page_layout(self, layout: LayoutType) -> None:
         """
@@ -648,7 +648,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     @property
     def page_layout(self) -> Optional[LayoutType]:
         """
@@ -673,11 +673,11 @@ class PdfWriter(PdfDocCommon):
              - Show two pages at a time, odd-numbered pages on the right
         """
         ...
-    
+
     @page_layout.setter
     def page_layout(self, layout: LayoutType) -> None:
         ...
-    
+
     _valid_modes = ...
     @property
     def page_mode(self) -> Optional[PagemodeType]:
@@ -701,11 +701,11 @@ class PdfWriter(PdfDocCommon):
              - Show attachments panel
         """
         ...
-    
+
     @page_mode.setter
     def page_mode(self, mode: PagemodeType) -> None:
         ...
-    
+
     def add_annotation(self, page_number: Union[int, PageObject], annotation: Dict[str, Any]) -> DictionaryObject:
         """
         Add a single annotation to the page.
@@ -722,7 +722,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def clean_page(self, page: Union[PageObject, IndirectObject]) -> PageObject:
         """
         Perform some clean up in the page.
@@ -737,7 +737,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def append(self, fileobj: Union[StrByteType, PdfReader, Path], outline_item: Union[str, None, PageRange, Tuple[int, int], Tuple[int, int, int], List[int]] = ..., pages: Union[None, PageRange, Tuple[int, int], Tuple[int, int, int], List[int], List[PageObject],] = ..., import_outline: bool = ..., excluded_fields: Optional[Union[List[str], Tuple[str, ...]]] = ...) -> None:
         """
         Identical to the :meth:`merge()<merge>` method, but assumes you want to
@@ -765,7 +765,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def merge(self, position: Optional[int], fileobj: Union[Path, StrByteType, PdfReader], outline_item: Optional[str] = ..., pages: Optional[Union[PageRangeSpec, List[PageObject]]] = ..., import_outline: bool = ..., excluded_fields: Optional[Union[List[str], Tuple[str, ...]]] = ...) -> None:
         """
         Merge the pages from the given file into the output file at the
@@ -797,7 +797,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def add_filtered_articles(self, fltr: Union[Pattern[Any], str], pages: Dict[int, PageObject], reader: PdfReader) -> None:
         """
         Add articles matching the defined criteria.
@@ -809,21 +809,21 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def close(self) -> None:
         """Implemented for API harmonization."""
         ...
-    
+
     def find_outline_item(self, outline_item: Dict[str, Any], root: Optional[OutlineType] = ...) -> Optional[List[int]]:
         ...
-    
+
     def find_bookmark(self, outline_item: Dict[str, Any], root: Optional[OutlineType] = ...) -> None:
         """
         .. deprecated:: 2.9.0
             Use :meth:`find_outline_item` instead.
         """
         ...
-    
+
     def reset_translation(self, reader: Union[None, PdfReader, IndirectObject] = ...) -> None:
         """
         Reset the translation table between reader and the writer object.
@@ -836,7 +836,7 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
     def set_page_label(self, page_index_from: int, page_index_to: int, style: Optional[PageLabelStyle] = ..., prefix: Optional[str] = ..., start: Optional[int] = ...) -> None:
         """
         Set a page label to a range of pages.
@@ -867,9 +867,8 @@ class PdfWriter(PdfDocCommon):
 
         """
         ...
-    
+
 
 
 def generate_appearance_stream(txt: str, sel: List[str], da: str, font_full_rev: Dict[str, bytes], rct: RectangleObject, font_height: float, y_offset: float) -> bytes:
     ...
-

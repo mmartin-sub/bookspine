@@ -32,7 +32,7 @@ class DocumentInformation(DictionaryObject):
     """
     def __init__(self) -> None:
         ...
-    
+
     @property
     def title(self) -> Optional[str]:
         """
@@ -42,12 +42,12 @@ class DocumentInformation(DictionaryObject):
         specified.
         """
         ...
-    
+
     @property
     def title_raw(self) -> Optional[str]:
         """The "raw" version of title; can return a ``ByteStringObject``."""
         ...
-    
+
     @property
     def author(self) -> Optional[str]:
         """
@@ -57,12 +57,12 @@ class DocumentInformation(DictionaryObject):
         specified.
         """
         ...
-    
+
     @property
     def author_raw(self) -> Optional[str]:
         """The "raw" version of author; can return a ``ByteStringObject``."""
         ...
-    
+
     @property
     def subject(self) -> Optional[str]:
         """
@@ -72,12 +72,12 @@ class DocumentInformation(DictionaryObject):
         specified.
         """
         ...
-    
+
     @property
     def subject_raw(self) -> Optional[str]:
         """The "raw" version of subject; can return a ``ByteStringObject``."""
         ...
-    
+
     @property
     def creator(self) -> Optional[str]:
         """
@@ -89,12 +89,12 @@ class DocumentInformation(DictionaryObject):
         ``None`` if the creator is not specified.
         """
         ...
-    
+
     @property
     def creator_raw(self) -> Optional[str]:
         """The "raw" version of creator; can return a ``ByteStringObject``."""
         ...
-    
+
     @property
     def producer(self) -> Optional[str]:
         """
@@ -106,17 +106,17 @@ class DocumentInformation(DictionaryObject):
         specified.
         """
         ...
-    
+
     @property
     def producer_raw(self) -> Optional[str]:
         """The "raw" version of producer; can return a ``ByteStringObject``."""
         ...
-    
+
     @property
     def creation_date(self) -> Optional[datetime]:
         """Read-only property accessing the document's creation date."""
         ...
-    
+
     @property
     def creation_date_raw(self) -> Optional[str]:
         """
@@ -126,7 +126,7 @@ class DocumentInformation(DictionaryObject):
         is the offset from UTC.
         """
         ...
-    
+
     @property
     def modification_date(self) -> Optional[datetime]:
         """
@@ -135,7 +135,7 @@ class DocumentInformation(DictionaryObject):
         The date and time the document was most recently modified.
         """
         ...
-    
+
     @property
     def modification_date_raw(self) -> Optional[str]:
         """
@@ -146,7 +146,7 @@ class DocumentInformation(DictionaryObject):
         is the offset from UTC.
         """
         ...
-    
+
     @property
     def keywords(self) -> Optional[str]:
         """
@@ -156,12 +156,12 @@ class DocumentInformation(DictionaryObject):
         specified.
         """
         ...
-    
+
     @property
     def keywords_raw(self) -> Optional[str]:
         """The "raw" version of keywords; can return a ``ByteStringObject``."""
         ...
-    
+
 
 
 class PdfDocCommon:
@@ -178,16 +178,16 @@ class PdfDocCommon:
     @abstractmethod
     def root_object(self) -> DictionaryObject:
         ...
-    
+
     @property
     @abstractmethod
     def pdf_header(self) -> str:
         ...
-    
+
     @abstractmethod
     def get_object(self, indirect_reference: Union[int, IndirectObject]) -> Optional[PdfObject]:
         ...
-    
+
     @property
     def metadata(self) -> Optional[DocumentInformation]:
         """
@@ -198,16 +198,16 @@ class PdfDocCommon:
         accessed by this function.
         """
         ...
-    
+
     @property
     def xmp_metadata(self) -> Optional[XmpInformation]:
         ...
-    
+
     @property
     def viewer_preferences(self) -> Optional[ViewerPreferences]:
         """Returns the existing ViewerPreferences as an overloaded dictionary."""
         ...
-    
+
     def get_num_pages(self) -> int:
         """
         Calculate the number of pages in this PDF file.
@@ -220,7 +220,7 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     def get_page(self, page_number: int) -> PageObject:
         """
         Retrieve a page by number from this PDF file.
@@ -235,15 +235,15 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     @property
     def named_destinations(self) -> Dict[str, Destination]:
         """A read-only dictionary which maps names to destinations."""
         ...
-    
+
     def get_named_dest_root(self) -> ArrayObject:
         ...
-    
+
     def get_fields(self, tree: Optional[TreeObject] = ..., retval: Optional[Dict[Any, Any]] = ..., fileobj: Optional[Any] = ..., stack: Optional[List[PdfObject]] = ...) -> Optional[Dict[str, Any]]:
         """
         Extract field data if this PDF contains interactive form fields.
@@ -265,7 +265,7 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     def get_form_text_fields(self, full_qualified_name: bool = ...) -> Dict[str, Any]:
         """
         Retrieve form fields from the document with textual data.
@@ -282,7 +282,7 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     def get_pages_showing_field(self, field: Union[Field, PdfObject, IndirectObject]) -> List[PageObject]:
         """
         Provides list of pages where the field is called.
@@ -304,7 +304,7 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     @property
     def open_destination(self) -> Union[None, Destination, TextStringObject, ByteStringObject]:
         """
@@ -317,11 +317,11 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     @open_destination.setter
     def open_destination(self, dest: Union[None, str, Destination, PageObject]) -> None:
         ...
-    
+
     @property
     def outline(self) -> OutlineType:
         """
@@ -330,7 +330,7 @@ class PdfDocCommon:
         'bookmarks').
         """
         ...
-    
+
     @property
     def threads(self) -> Optional[ArrayObject]:
         """
@@ -348,7 +348,7 @@ class PdfDocCommon:
         author, and creation date.
         """
         ...
-    
+
     def get_page_number(self, page: PageObject) -> Optional[int]:
         """
         Retrieve page number of a given PageObject.
@@ -362,7 +362,7 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     def get_destination_page_number(self, destination: Destination) -> Optional[int]:
         """
         Retrieve page number of a given Destination object.
@@ -375,7 +375,7 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     @property
     def pages(self) -> List[PageObject]:
         """
@@ -392,7 +392,7 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     @property
     def page_labels(self) -> List[str]:
         """
@@ -402,7 +402,7 @@ class PdfDocCommon:
         appear in the document.
         """
         ...
-    
+
     @property
     def page_layout(self) -> Optional[str]:
         """
@@ -427,7 +427,7 @@ class PdfDocCommon:
              - Show two pages at a time, odd-numbered pages on the right
         """
         ...
-    
+
     @property
     def page_mode(self) -> Optional[PagemodeType]:
         """
@@ -450,7 +450,7 @@ class PdfDocCommon:
              - Show attachments panel
         """
         ...
-    
+
     def remove_page(self, page: Union[int, PageObject, IndirectObject], clean: bool = ...) -> None:
         """
         Remove page from pages list.
@@ -467,16 +467,16 @@ class PdfDocCommon:
 
         """
         ...
-    
+
     def decode_permissions(self, permissions_code: int) -> Dict[str, bool]:
         """Take the permissions as an integer, return the allowed access."""
         ...
-    
+
     @property
     def user_access_permissions(self) -> Optional[UserAccessPermissions]:
         """Get the user access permissions for encrypted documents. Returns None if not encrypted."""
         ...
-    
+
     @property
     @abstractmethod
     def is_encrypted(self) -> bool:
@@ -487,38 +487,35 @@ class PdfDocCommon:
         :meth:`decrypt()<pypdf.PdfReader.decrypt>` method is called.
         """
         ...
-    
+
     @property
     def xfa(self) -> Optional[Dict[str, Any]]:
         ...
-    
+
     @property
     def attachments(self) -> Mapping[str, List[bytes]]:
         """Mapping of attachment filenames to their content."""
         ...
-    
+
     @property
     def attachment_list(self) -> Generator[EmbeddedFile, None, None]:
         """Iterable of attachment objects."""
         ...
-    
+
 
 
 class LazyDict(Mapping[Any, Any]):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         ...
-    
+
     def __getitem__(self, key: str) -> Any:
         ...
-    
+
     def __iter__(self) -> Iterator[Any]:
         ...
-    
+
     def __len__(self) -> int:
         ...
-    
+
     def __str__(self) -> str:
         ...
-    
-
-

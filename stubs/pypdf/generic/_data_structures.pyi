@@ -21,11 +21,11 @@ IndirectPattern = ...
 class ArrayObject(List[Any], PdfObject):
     def replicate(self, pdf_dest: PdfWriterProtocol) -> ArrayObject:
         ...
-    
+
     def clone(self, pdf_dest: PdfWriterProtocol, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> ArrayObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -35,11 +35,11 @@ class ArrayObject(List[Any], PdfObject):
 
         """
         ...
-    
+
     def items(self) -> Iterable[Any]:
         """Emulate DictionaryObject.items for a list (index, object)."""
         ...
-    
+
     def __add__(self, lst: Any) -> ArrayObject:
         """
         Allow extension by adding list or add one element only
@@ -56,7 +56,7 @@ class ArrayObject(List[Any], PdfObject):
 
         """
         ...
-    
+
     def __iadd__(self, lst: Any) -> Self:
         """
          Allow extension by adding list or add one element only
@@ -70,28 +70,28 @@ class ArrayObject(List[Any], PdfObject):
 
         """
         ...
-    
+
     def __isub__(self, lst: Any) -> Self:
         """Allow to remove items"""
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @staticmethod
     def read_from_stream(stream: StreamType, pdf: Optional[PdfReaderProtocol], forced_encoding: Union[None, str, List[str], Dict[int, str]] = ...) -> ArrayObject:
         ...
-    
+
 
 
 class DictionaryObject(Dict[Any, Any], PdfObject):
     def replicate(self, pdf_dest: PdfWriterProtocol) -> DictionaryObject:
         ...
-    
+
     def clone(self, pdf_dest: PdfWriterProtocol, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> DictionaryObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -101,10 +101,10 @@ class DictionaryObject(Dict[Any, Any], PdfObject):
 
         """
         ...
-    
+
     def raw_get(self, key: Any) -> Any:
         ...
-    
+
     def get_inherited(self, key: str, default: Any = ...) -> Any:
         """
         Returns the value of a key or from the parent if not found.
@@ -120,16 +120,16 @@ class DictionaryObject(Dict[Any, Any], PdfObject):
 
         """
         ...
-    
+
     def __setitem__(self, key: Any, value: Any) -> Any:
         ...
-    
+
     def setdefault(self, key: Any, value: Optional[Any] = ...) -> Any:
         ...
-    
+
     def __getitem__(self, key: Any) -> PdfObject:
         ...
-    
+
     @property
     def xmp_metadata(self) -> Optional[XmpInformationProtocol]:
         """
@@ -145,60 +145,60 @@ class DictionaryObject(Dict[Any, Any], PdfObject):
 
         """
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @staticmethod
     def read_from_stream(stream: StreamType, pdf: Optional[PdfReaderProtocol], forced_encoding: Union[None, str, List[str], Dict[int, str]] = ...) -> DictionaryObject:
         ...
-    
+
 
 
 class TreeObject(DictionaryObject):
     def __init__(self, dct: Optional[DictionaryObject] = ...) -> None:
         ...
-    
+
     def has_children(self) -> bool:
         ...
-    
+
     def __iter__(self) -> Any:
         ...
-    
+
     def children(self) -> Iterable[Any]:
         ...
-    
+
     def add_child(self, child: Any, pdf: PdfWriterProtocol) -> None:
         ...
-    
+
     def inc_parent_counter_default(self, parent: Union[None, IndirectObject, TreeObject], n: int) -> None:
         ...
-    
+
     def inc_parent_counter_outline(self, parent: Union[None, IndirectObject, TreeObject], n: int) -> None:
         ...
-    
+
     def insert_child(self, child: Any, before: Any, pdf: PdfWriterProtocol, inc_parent_counter: Optional[Callable[..., Any]] = ...) -> IndirectObject:
         ...
-    
+
     def remove_child(self, child: Any) -> None:
         ...
-    
+
     def remove_from_tree(self) -> None:
         """Remove the object from the tree it is in."""
         ...
-    
+
     def empty_tree(self) -> None:
         ...
-    
+
 
 
 class StreamObject(DictionaryObject):
     def __init__(self) -> None:
         ...
-    
+
     def replicate(self, pdf_dest: PdfWriterProtocol) -> StreamObject:
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -208,30 +208,30 @@ class StreamObject(DictionaryObject):
 
         """
         ...
-    
+
     def get_data(self) -> bytes:
         ...
-    
+
     def set_data(self, data: bytes) -> None:
         ...
-    
+
     def hash_value_data(self) -> bytes:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @staticmethod
     def initializeFromDictionary(data: Dict[str, Any]) -> None:
         ...
-    
+
     @staticmethod
     def initialize_from_dictionary(data: Dict[str, Any]) -> Union[EncodedStreamObject, DecodedStreamObject]:
         ...
-    
+
     def flate_encode(self, level: int = ...) -> EncodedStreamObject:
         ...
-    
+
     def decode_as_image(self) -> Any:
         """
         Try to decode the stream object as an image
@@ -246,7 +246,7 @@ class StreamObject(DictionaryObject):
 
         """
         ...
-    
+
 
 
 class DecodedStreamObject(StreamObject):
@@ -256,13 +256,13 @@ class DecodedStreamObject(StreamObject):
 class EncodedStreamObject(StreamObject):
     def __init__(self) -> None:
         ...
-    
+
     def get_data(self) -> bytes:
         ...
-    
+
     def set_data(self, data: bytes) -> None:
         ...
-    
+
 
 
 class ContentStream(DecodedStreamObject):
@@ -287,10 +287,10 @@ class ContentStream(DecodedStreamObject):
     """
     def __init__(self, stream: Any, pdf: Any, forced_encoding: Union[None, str, List[str], Dict[int, str]] = ...) -> None:
         ...
-    
+
     def replicate(self, pdf_dest: PdfWriterProtocol) -> ContentStream:
         ...
-    
+
     def clone(self, pdf_dest: Any, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> ContentStream:
         """
         Clone object into pdf_dest.
@@ -305,27 +305,27 @@ class ContentStream(DecodedStreamObject):
 
         """
         ...
-    
+
     def get_data(self) -> bytes:
         ...
-    
+
     def set_data(self, data: bytes) -> None:
         ...
-    
+
     @property
     def operations(self) -> List[Tuple[Any, bytes]]:
         ...
-    
+
     @operations.setter
     def operations(self, operations: List[Tuple[Any, bytes]]) -> None:
         ...
-    
+
     def isolate_graphics_state(self) -> None:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
 
 
 def read_object(stream: StreamType, pdf: Optional[PdfReaderProtocol], forced_encoding: Union[None, str, List[str], Dict[int, str]] = ...) -> Union[PdfObject, int, str, ContentStream]:
@@ -340,32 +340,32 @@ class Field(TreeObject):
     """
     def __init__(self, data: DictionaryObject) -> None:
         ...
-    
+
     @property
     def field_type(self) -> Optional[NameObject]:
         """Read-only property accessing the type of this field."""
         ...
-    
+
     @property
     def parent(self) -> Optional[DictionaryObject]:
         """Read-only property accessing the parent of this field."""
         ...
-    
+
     @property
     def kids(self) -> Optional[ArrayObject]:
         """Read-only property accessing the kids of this field."""
         ...
-    
+
     @property
     def name(self) -> Optional[str]:
         """Read-only property accessing the name of this field."""
         ...
-    
+
     @property
     def alternate_name(self) -> Optional[str]:
         """Read-only property accessing the alternate name of this field."""
         ...
-    
+
     @property
     def mapping_name(self) -> Optional[str]:
         """
@@ -375,7 +375,7 @@ class Field(TreeObject):
         :meth:`get_fields()<pypdf.PdfReader.get_fields>`
         """
         ...
-    
+
     @property
     def flags(self) -> Optional[int]:
         """
@@ -383,7 +383,7 @@ class Field(TreeObject):
         characteristics of the field (see Table 8.70 of the PDF 1.7 reference).
         """
         ...
-    
+
     @property
     def value(self) -> Optional[Any]:
         """
@@ -392,12 +392,12 @@ class Field(TreeObject):
         Format varies based on field type.
         """
         ...
-    
+
     @property
     def default_value(self) -> Optional[Any]:
         """Read-only property accessing the default value of this field."""
         ...
-    
+
     @property
     def additional_actions(self) -> Optional[DictionaryObject]:
         """
@@ -407,7 +407,7 @@ class Field(TreeObject):
         events. See Section 8.5.2 of the PDF 1.7 reference.
         """
         ...
-    
+
 
 
 class Destination(TreeObject):
@@ -429,59 +429,59 @@ class Destination(TreeObject):
     node: Optional[DictionaryObject] = ...
     def __init__(self, title: str, page: Union[NumberObject, IndirectObject, NullObject, DictionaryObject], fit: Fit) -> None:
         ...
-    
+
     @property
     def dest_array(self) -> ArrayObject:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @property
     def title(self) -> Optional[str]:
         """Read-only property accessing the destination title."""
         ...
-    
+
     @property
     def page(self) -> Optional[IndirectObject]:
         """Read-only property accessing the IndirectObject of the destination page."""
         ...
-    
+
     @property
     def typ(self) -> Optional[str]:
         """Read-only property accessing the destination type."""
         ...
-    
+
     @property
     def zoom(self) -> Optional[int]:
         """Read-only property accessing the zoom factor."""
         ...
-    
+
     @property
     def left(self) -> Optional[FloatObject]:
         """Read-only property accessing the left horizontal coordinate."""
         ...
-    
+
     @property
     def right(self) -> Optional[FloatObject]:
         """Read-only property accessing the right horizontal coordinate."""
         ...
-    
+
     @property
     def top(self) -> Optional[FloatObject]:
         """Read-only property accessing the top vertical coordinate."""
         ...
-    
+
     @property
     def bottom(self) -> Optional[FloatObject]:
         """Read-only property accessing the bottom vertical coordinate."""
         ...
-    
+
     @property
     def color(self) -> Optional[ArrayObject]:
         """Read-only property accessing the color in (R, G, B) with values 0.0-1.0."""
         ...
-    
+
     @property
     def font_format(self) -> Optional[OutlineFontFlag]:
         """
@@ -490,7 +490,7 @@ class Destination(TreeObject):
         1=italic, 2=bold, 3=both
         """
         ...
-    
+
     @property
     def outline_count(self) -> Optional[int]:
         """
@@ -501,6 +501,3 @@ class Destination(TreeObject):
         absolute value = number of visible descendants at all levels
         """
         ...
-    
-
-

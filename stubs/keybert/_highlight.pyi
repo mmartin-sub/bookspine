@@ -22,6 +22,3 @@ def highlight_document(doc: str, keywords: List[Tuple[str, float]], vectorizer: 
     class NullHighlighter(RegexHighlighter):
         """Basic highlighter."""
         ...
-    
-    
-

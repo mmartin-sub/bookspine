@@ -38,3 +38,7 @@ tests/htmlcov/
 # OS specific files
 .DS_Store
 Thumbs.db
+
+# Secret files
+.secrets
+!.secrets.baseline

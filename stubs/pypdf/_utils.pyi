@@ -247,13 +247,13 @@ class classproperty:
     """
     def __init__(self, method=...) -> None:
         ...
-    
+
     def __get__(self, instance, cls=...) -> Any:
         ...
-    
+
     def getter(self, method) -> Self:
         ...
-    
+
 
 
 @dataclass
@@ -263,10 +263,10 @@ class File:
     indirect_reference: Optional[IndirectObject] = ...
     def __str__(self) -> str:
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
 
 
 @functools.total_ordering
@@ -274,15 +274,12 @@ class Version:
     COMPONENT_PATTERN = ...
     def __init__(self, version_str: str) -> None:
         ...
-    
+
     def __eq__(self, other: object) -> bool:
         ...
-    
+
     def __hash__(self) -> int:
         ...
-    
+
     def __lt__(self, other: Any) -> bool:
         ...
-    
-
-

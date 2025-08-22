@@ -54,7 +54,7 @@ class PageRange:
             However PageRange(slice(3)) means the first three pages.
         """
         ...
-    
+
     @staticmethod
     def valid(input: Any) -> bool:
         """
@@ -68,19 +68,19 @@ class PageRange:
 
         """
         ...
-    
+
     def to_slice(self) -> slice:
         """Return the slice equivalent of this page range."""
         ...
-    
+
     def __str__(self) -> str:
         """A string like "1:2:3"."""
         ...
-    
+
     def __repr__(self) -> str:
         """A string like "PageRange('1:2:3')"."""
         ...
-    
+
     def indices(self, n: int) -> Tuple[int, int, int]:
         """
         Assuming a sequence of length n, calculate the start and stop indices,
@@ -96,16 +96,16 @@ class PageRange:
 
         """
         ...
-    
+
     def __eq__(self, other: object) -> bool:
         ...
-    
+
     def __hash__(self) -> int:
         ...
-    
+
     def __add__(self, other: PageRange) -> PageRange:
         ...
-    
+
 
 
 PAGE_RANGE_ALL = ...

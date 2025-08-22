@@ -4,7 +4,7 @@ default_language_version:
 repos:
     # Standard Python checks
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v5.0.0
+      rev: v6.0.0
       hooks:
         - id: trailing-whitespace
           exclude: ^(docs/|projects/|templates/|\.history/|downloaded_fonts/)
@@ -26,7 +26,7 @@ repos:
 
     # Ruff for linting and formatting
     - repo: https://github.com/astral-sh/ruff-pre-commit
-      rev: v0.12.5
+      rev: v0.12.10
       hooks:
         - id: ruff
           args: [--fix]
@@ -92,6 +92,18 @@ repos:
           files: \.py$
           pass_filenames: true
           description: "Prevent Pydantic v1 syntax from being committed"
+
+    - repo: https://github.com/astral-sh/uv-pre-commit
+      rev: '0.8.13'
+      hooks:
+      # Update the uv lockfile
+      - id: uv-lock
+        name: Check that uv.lock is up-to-date
+        # These arguments MUST match the command you use to generate the lock file
+        # args: [--all-extras]
+        # This hook should only run when the files that affect dependencies change
+        files: ^(pyproject\.toml|uv\.lock)$
+        # language_version: python3.12
 
 #  # Fast tests (optional - uncomment if you want tests to run on commit)
 #  - repo: local

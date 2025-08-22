@@ -18,7 +18,7 @@ class KeyLLM:
             llm: The Large Language Model to use
         """
         ...
-    
+
     def extract_keywords(self, docs: Union[str, List[str]], check_vocab: bool = ..., candidate_keywords: List[List[str]] = ..., threshold: float = ..., embeddings=...) -> Union[List[str], List[List[str]]]:
         """Extract keywords and/or keyphrases.
 
@@ -62,6 +62,3 @@ class KeyLLM:
         ```
         """
         ...
-    
-
-

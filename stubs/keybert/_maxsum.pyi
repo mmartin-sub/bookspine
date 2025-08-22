@@ -26,4 +26,3 @@ def max_sum_distance(doc_embedding: np.ndarray, word_embeddings: np.ndarray, wor
          List[Tuple[str, float]]: The selected keywords/keyphrases with their distances
     """
     ...
-

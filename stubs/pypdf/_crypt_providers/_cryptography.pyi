@@ -8,25 +8,25 @@ crypt_provider = ...
 class CryptRC4(CryptBase):
     def __init__(self, key: bytes) -> None:
         ...
-    
+
     def encrypt(self, data: bytes) -> bytes:
         ...
-    
+
     def decrypt(self, data: bytes) -> bytes:
         ...
-    
+
 
 
 class CryptAES(CryptBase):
     def __init__(self, key: bytes) -> None:
         ...
-    
+
     def encrypt(self, data: bytes) -> bytes:
         ...
-    
+
     def decrypt(self, data: bytes) -> bytes:
         ...
-    
+
 
 
 def rc4_encrypt(key: bytes, data: bytes) -> bytes:
@@ -46,4 +46,3 @@ def aes_cbc_encrypt(key: bytes, iv: bytes, data: bytes) -> bytes:
 
 def aes_cbc_decrypt(key: bytes, iv: bytes, data: bytes) -> bytes:
     ...
-

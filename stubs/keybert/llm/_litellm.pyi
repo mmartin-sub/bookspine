@@ -60,7 +60,7 @@ class LiteLLM(BaseLLM):
     """
     def __init__(self, model: str = ..., prompt: str = ..., system_prompt: str = ..., generator_kwargs: Mapping[str, Any] = ..., delay_in_seconds: float = ..., verbose: bool = ...) -> None:
         ...
-    
+
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = ...): # -> list[Any]:
         """Extract topics.
 
@@ -75,6 +75,3 @@ class LiteLLM(BaseLLM):
             all_keywords: All keywords for each document
         """
         ...
-    
-
-

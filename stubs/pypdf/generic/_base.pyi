@@ -27,13 +27,13 @@ class PdfObject(PdfObjectProtocol):
 
         """
         ...
-    
+
     def hash_value_data(self) -> bytes:
         ...
-    
+
     def hash_value(self) -> bytes:
         ...
-    
+
     def replicate(self, pdf_dest: PdfWriterProtocol) -> PdfObject:
         """
         Clone object into pdf_dest (PdfWriterProtocol which is an interface for PdfWriter)
@@ -47,7 +47,7 @@ class PdfObject(PdfObjectProtocol):
 
         """
         ...
-    
+
     def clone(self, pdf_dest: PdfWriterProtocol, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> PdfObject:
         """
         Clone object into pdf_dest (PdfWriterProtocol which is an interface for PdfWriter).
@@ -71,21 +71,21 @@ class PdfObject(PdfObjectProtocol):
 
         """
         ...
-    
+
     def get_object(self) -> Optional[PdfObject]:
         """Resolve indirect references."""
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
 
 
 class NullObject(PdfObject):
     def clone(self, pdf_dest: PdfWriterProtocol, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> NullObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -95,33 +95,33 @@ class NullObject(PdfObject):
 
         """
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @staticmethod
     def read_from_stream(stream: StreamType) -> NullObject:
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
     def __eq__(self, other: object) -> bool:
         ...
-    
+
     def __hash__(self) -> int:
         ...
-    
+
 
 
 class BooleanObject(PdfObject):
     def __init__(self, value: Any) -> None:
         ...
-    
+
     def clone(self, pdf_dest: PdfWriterProtocol, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> BooleanObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -131,32 +131,32 @@ class BooleanObject(PdfObject):
 
         """
         ...
-    
+
     def __eq__(self, o: object, /) -> bool:
         ...
-    
+
     def __hash__(self) -> int:
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @staticmethod
     def read_from_stream(stream: StreamType) -> BooleanObject:
         ...
-    
+
 
 
 class IndirectObject(PdfObject):
     def __init__(self, idnum: int, generation: int, pdf: Any) -> None:
         ...
-    
+
     def __hash__(self) -> int:
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -166,72 +166,72 @@ class IndirectObject(PdfObject):
 
         """
         ...
-    
+
     def replicate(self, pdf_dest: PdfWriterProtocol) -> PdfObject:
         ...
-    
+
     def clone(self, pdf_dest: PdfWriterProtocol, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> IndirectObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     @property
     def indirect_reference(self) -> IndirectObject:
         ...
-    
+
     def get_object(self) -> Optional[PdfObject]:
         ...
-    
+
     def __deepcopy__(self, memo: Any) -> IndirectObject:
         ...
-    
+
     def __getattr__(self, name: str) -> Any:
         ...
-    
+
     def __getitem__(self, key: Any) -> Any:
         ...
-    
+
     def __contains__(self, key: Any) -> bool:
         ...
-    
+
     def __iter__(self) -> Any:
         ...
-    
+
     def __float__(self) -> str:
         ...
-    
+
     def __int__(self) -> int:
         ...
-    
+
     def __str__(self) -> str:
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
     def __eq__(self, other: object) -> bool:
         ...
-    
+
     def __ne__(self, other: object) -> bool:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @staticmethod
     def read_from_stream(stream: StreamType, pdf: Any) -> IndirectObject:
         ...
-    
+
 
 
 FLOAT_WRITE_PRECISION = ...
 class FloatObject(float, PdfObject):
     def __new__(cls, value: Any = ..., context: Optional[Any] = ...) -> FloatObject:
         ...
-    
+
     def clone(self, pdf_dest: Any, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> FloatObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -241,30 +241,30 @@ class FloatObject(float, PdfObject):
 
         """
         ...
-    
+
     def myrepr(self) -> str:
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
     def as_numeric(self) -> float:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
 
 
 class NumberObject(int, PdfObject):
     NumberPattern = ...
     def __new__(cls, value: Any) -> NumberObject:
         ...
-    
+
     def clone(self, pdf_dest: Any, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> NumberObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -274,17 +274,17 @@ class NumberObject(int, PdfObject):
 
         """
         ...
-    
+
     def as_numeric(self) -> int:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     @staticmethod
     def read_from_stream(stream: StreamType) -> Union[NumberObject, FloatObject]:
         ...
-    
+
 
 
 class ByteStringObject(bytes, PdfObject):
@@ -298,7 +298,7 @@ class ByteStringObject(bytes, PdfObject):
     def clone(self, pdf_dest: Any, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> ByteStringObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -308,18 +308,18 @@ class ByteStringObject(bytes, PdfObject):
 
         """
         ...
-    
+
     @property
     def original_bytes(self) -> bytes:
         """For compatibility with TextStringObject.original_bytes."""
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     def __str__(self) -> str:
         ...
-    
+
 
 
 class TextStringObject(str, PdfObject):
@@ -336,11 +336,11 @@ class TextStringObject(str, PdfObject):
     _original_bytes: Optional[bytes] = ...
     def __new__(cls, value: Any) -> TextStringObject:
         ...
-    
+
     def clone(self, pdf_dest: Any, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> TextStringObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -350,7 +350,7 @@ class TextStringObject(str, PdfObject):
 
         """
         ...
-    
+
     @property
     def original_bytes(self) -> bytes:
         """
@@ -360,16 +360,16 @@ class TextStringObject(str, PdfObject):
         back-calculate what the original encoded bytes were.
         """
         ...
-    
+
     def get_original_bytes(self) -> bytes:
         ...
-    
+
     def get_encoded_bytes(self) -> bytes:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
 
 
 class NameObject(str, PdfObject):
@@ -379,7 +379,7 @@ class NameObject(str, PdfObject):
     def clone(self, pdf_dest: Any, force_duplicate: bool = ..., ignore_fields: Optional[Sequence[Union[str, int]]] = ...) -> NameObject:
         """Clone object into pdf_dest."""
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -389,26 +389,26 @@ class NameObject(str, PdfObject):
 
         """
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     def renumber(self) -> bytes:
         ...
-    
+
     @classproperty
     def surfix(cls) -> bytes:
         ...
-    
+
     @staticmethod
     def unnumber(sin: bytes) -> bytes:
         ...
-    
+
     CHARSETS = ...
     @staticmethod
     def read_from_stream(stream: StreamType, pdf: Any) -> NameObject:
         ...
-    
+
 
 
 def encode_pdfdocencoding(unicode_string: str) -> bytes:
@@ -421,4 +421,3 @@ def is_null_or_none(x: Any) -> TypeGuard[Union[None, NullObject, IndirectObject]
 
     """
     ...
-

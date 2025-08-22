@@ -28,7 +28,7 @@ class TextStateManager:
     """
     def __init__(self) -> None:
         ...
-    
+
     def set_state_param(self, op: bytes, value: Union[float, List[Any]]) -> None:
         """
         Set a text state parameter. Supports Tc, Tz, Tw, TL, and Ts operators.
@@ -41,7 +41,7 @@ class TextStateManager:
 
         """
         ...
-    
+
     def set_font(self, font: Font, size: float) -> None:
         """
         Set the current font and font_size.
@@ -52,7 +52,7 @@ class TextStateManager:
 
         """
         ...
-    
+
     def text_state_params(self, value: Union[bytes, str] = ...) -> TextStateParams:
         """
         Create a TextStateParams instance to display a text string. Type[bytes] values
@@ -69,49 +69,46 @@ class TextStateManager:
 
         """
         ...
-    
+
     @staticmethod
     def raw_transform(_a: float = ..., _b: float = ..., _c: float = ..., _d: float = ..., _e: float = ..., _f: float = ...) -> Dict[int, float]:
         """Only a/b/c/d/e/f matrix params"""
         ...
-    
+
     @staticmethod
     def new_transform(_a: float = ..., _b: float = ..., _c: float = ..., _d: float = ..., _e: float = ..., _f: float = ..., is_text: bool = ..., is_render: bool = ...) -> TextStateManagerDictType:
         """Standard a/b/c/d/e/f matrix params + 'is_text' and 'is_render' keys"""
         ...
-    
+
     def reset_tm(self) -> TextStateManagerChainMapType:
         """Clear all transforms from chainmap having is_text==True or is_render==True"""
         ...
-    
+
     def reset_trm(self) -> TextStateManagerChainMapType:
         """Clear all transforms from chainmap having is_render==True"""
         ...
-    
+
     def remove_q(self) -> TextStateManagerChainMapType:
         """Rewind to stack prior state after closing a 'q' with internal 'cm' ops"""
         ...
-    
+
     def add_q(self) -> None:
         """Add another level to q_queue"""
         ...
-    
+
     def add_cm(self, *args: Any) -> TextStateManagerChainMapType:
         """Concatenate an additional transform matrix"""
         ...
-    
+
     def add_tm(self, operands: List[float]) -> TextStateManagerChainMapType:
         """Append a text transform matrix"""
         ...
-    
+
     def add_trm(self, operands: List[float]) -> TextStateManagerChainMapType:
         """Append a text rendering transform matrix"""
         ...
-    
+
     @property
     def effective_transform(self) -> List[float]:
         """Current effective transform accounting for cm, tm, and trm transforms"""
         ...
-    
-
-

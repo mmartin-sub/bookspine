@@ -61,4 +61,3 @@ def get_text_operands(operands: List[Union[str, TextStringObject]], cm_matrix: L
 
 def get_display_str(text: str, cm_matrix: List[float], tm_matrix: List[float], cmap: Tuple[Union[str, Dict[int, str]], Dict[str, str], str, Optional[DictionaryObject]], text_operands: str, font_size: float, rtl_dir: bool, visitor_text: Optional[Callable[[Any, Any, Any, Any, Any], None]]) -> Tuple[str, bool]:
     ...
-

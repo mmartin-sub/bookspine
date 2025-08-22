@@ -15,14 +15,14 @@ class NamedReferenceLink:
     def __init__(self, reference: TextStringObject, source_pdf: PdfReader) -> None:
         """reference: TextStringObject with named reference"""
         ...
-    
+
     def find_referenced_page(self) -> Union[IndirectObject, None]:
         ...
-    
+
     def patch_reference(self, target_pdf: PdfWriter, new_page: IndirectObject) -> None:
         """target_pdf: PdfWriter which the new link went into"""
         ...
-    
+
 
 
 class DirectReferenceLink:
@@ -30,14 +30,14 @@ class DirectReferenceLink:
     def __init__(self, reference: ArrayObject) -> None:
         """reference: an ArrayObject whose first element is the Page indirect object"""
         ...
-    
+
     def find_referenced_page(self) -> IndirectObject:
         ...
-    
+
     def patch_reference(self, target_pdf: PdfWriter, new_page: IndirectObject) -> None:
         """target_pdf: PdfWriter which the new link went into"""
         ...
-    
+
 
 
 ReferenceLink = Union[NamedReferenceLink, DirectReferenceLink]
@@ -46,4 +46,3 @@ def extract_links(new_page: PageObject, old_page: PageObject) -> List[Tuple[Refe
     the same. Produces one list of (new link, old link) tuples.
     """
     ...
-

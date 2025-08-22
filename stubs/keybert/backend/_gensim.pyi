@@ -28,7 +28,7 @@ class GensimBackend(BaseEmbedder):
     """
     def __init__(self, embedding_model: Word2VecKeyedVectors) -> None:
         ...
-    
+
     def embed(self, documents: List[str], verbose: bool = ...) -> np.ndarray:
         """Embed a list of n documents/words into an n-dimensional matrix of embeddings.
 
@@ -41,6 +41,3 @@ class GensimBackend(BaseEmbedder):
             that each have an embeddings size of `m`
         """
         ...
-    
-
-

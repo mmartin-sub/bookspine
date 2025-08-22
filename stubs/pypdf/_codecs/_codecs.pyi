@@ -25,7 +25,7 @@ class Codec(ABC):
 
         """
         ...
-    
+
     @abstractmethod
     def decode(self, data: bytes) -> bytes:
         """
@@ -39,7 +39,7 @@ class Codec(ABC):
 
         """
         ...
-    
+
 
 
 class LzwCodec(Codec):
@@ -55,13 +55,10 @@ class LzwCodec(Codec):
         Taken from PDF 1.7 specs, "7.4.4.2 Details of LZW Encoding".
         """
         ...
-    
+
     def decode(self, data: bytes) -> bytes:
         """
         The following code was converted to Python from the following code:
         https://github.com/empira/PDFsharp/blob/master/src/foundation/src/PDFsharp/src/PdfSharp/Pdf.Filters/LzwDecode.cs
         """
         ...
-    
-
-

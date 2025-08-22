@@ -126,4 +126,3 @@ def fixed_width_page(ty_groups: Dict[int, List[BTGroup]], char_width: float, spa
 
     """
     ...
-

@@ -10,6 +10,3 @@ class PdfMerger:
     """
     def __init__(self) -> None:
         ...
-    
-
-

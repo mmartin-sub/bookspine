@@ -13,4 +13,3 @@ def select_backend(embedding_model) -> BaseEmbedder:
         model: Either a Sentence-Transformer or Flair model
     """
     ...
-

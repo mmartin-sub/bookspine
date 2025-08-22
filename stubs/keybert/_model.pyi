@@ -43,7 +43,7 @@ class KeyBERT:
             llm: The Large Language Model used to extract keywords
         """
         ...
-    
+
     def extract_keywords(self, docs: Union[str, List[str]], candidates: List[str] = ..., keyphrase_ngram_range: Tuple[int, int] = ..., stop_words: Union[str, List[str]] = ..., top_n: int = ..., min_df: int = ..., use_maxsum: bool = ..., use_mmr: bool = ..., diversity: float = ..., nr_candidates: int = ..., vectorizer: CountVectorizer = ..., highlight: bool = ..., seed_keywords: Union[List[str], List[List[str]]] = ..., doc_embeddings: np.array = ..., word_embeddings: np.array = ..., threshold: float = ...) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases.
 
@@ -113,7 +113,7 @@ class KeyBERT:
         ```
         """
         ...
-    
+
     def extract_embeddings(self, docs: Union[str, List[str]], candidates: List[str] = ..., keyphrase_ngram_range: Tuple[int, int] = ..., stop_words: Union[str, List[str]] = ..., min_df: int = ..., vectorizer: CountVectorizer = ...) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract document and word embeddings for the input documents and the
         generated candidate keywords/keyphrases respectively.
@@ -163,6 +163,3 @@ class KeyBERT:
         ```
         """
         ...
-    
-
-

@@ -41,7 +41,7 @@ class Transformation:
     """
     def __init__(self, ctm: CompressedTransformationMatrix = ...) -> None:
         ...
-    
+
     @property
     def matrix(self) -> TransformationMatrixType:
         """
@@ -50,7 +50,7 @@ class Transformation:
         ((a, b, 0), (c, d, 0), (e, f, 1))
         """
         ...
-    
+
     @staticmethod
     def compress(matrix: TransformationMatrixType) -> CompressedTransformationMatrix:
         """
@@ -64,7 +64,7 @@ class Transformation:
 
         """
         ...
-    
+
     def transform(self, m: Transformation) -> Transformation:
         """
         Apply one transformation to another.
@@ -83,7 +83,7 @@ class Transformation:
 
         """
         ...
-    
+
     def translate(self, tx: float = ..., ty: float = ...) -> Transformation:
         """
         Translate the contents of a page.
@@ -97,7 +97,7 @@ class Transformation:
 
         """
         ...
-    
+
     def scale(self, sx: Optional[float] = ..., sy: Optional[float] = ...) -> Transformation:
         """
         Scale the contents of a page towards the origin of the coordinate system.
@@ -114,7 +114,7 @@ class Transformation:
 
         """
         ...
-    
+
     def rotate(self, rotation: float) -> Transformation:
         """
         Rotate the contents of a page.
@@ -127,18 +127,18 @@ class Transformation:
 
         """
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
     @overload
     def apply_on(self, pt: List[float], as_object: bool = ...) -> List[float]:
         ...
-    
+
     @overload
     def apply_on(self, pt: Tuple[float, float], as_object: bool = ...) -> Tuple[float, float]:
         ...
-    
+
     def apply_on(self, pt: Union[Tuple[float, float], List[float]], as_object: bool = ...) -> Union[Tuple[float, float], List[float]]:
         """
         Apply the transformation matrix on the given point.
@@ -152,7 +152,7 @@ class Transformation:
 
         """
         ...
-    
+
 
 
 @dataclass
@@ -187,13 +187,13 @@ class ImageFile:
 
         """
         ...
-    
+
     def __str__(self) -> str:
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
 
 
 class VirtualListImages(Sequence[ImageFile]):
@@ -204,33 +204,33 @@ class VirtualListImages(Sequence[ImageFile]):
     """
     def __init__(self, ids_function: Callable[[], List[Union[str, List[str]]]], get_function: Callable[[Union[str, List[str], Tuple[str]]], ImageFile]) -> None:
         ...
-    
+
     def __len__(self) -> int:
         ...
-    
+
     def keys(self) -> List[Union[str, List[str]]]:
         ...
-    
+
     def items(self) -> List[Tuple[Union[str, List[str]], ImageFile]]:
         ...
-    
+
     @overload
     def __getitem__(self, index: Union[int, str, List[str]]) -> ImageFile:
         ...
-    
+
     @overload
     def __getitem__(self, index: slice) -> Sequence[ImageFile]:
         ...
-    
+
     def __getitem__(self, index: Union[int, slice, str, List[str], Tuple[str]]) -> Union[ImageFile, Sequence[ImageFile]]:
         ...
-    
+
     def __iter__(self) -> Iterator[ImageFile]:
         ...
-    
+
     def __str__(self) -> str:
         ...
-    
+
 
 
 class PageObject(DictionaryObject):
@@ -252,7 +252,7 @@ class PageObject(DictionaryObject):
     original_page: PageObject
     def __init__(self, pdf: Optional[PdfCommonDocProtocol] = ..., indirect_reference: Optional[IndirectObject] = ...) -> None:
         ...
-    
+
     def hash_bin(self) -> int:
         """
         Used to detect modified object.
@@ -265,10 +265,10 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def hash_value_data(self) -> bytes:
         ...
-    
+
     @property
     def user_unit(self) -> float:
         """
@@ -279,7 +279,7 @@ class PageObject(DictionaryObject):
         space unit is 3/72 inch.
         """
         ...
-    
+
     @staticmethod
     def create_blank_page(pdf: Optional[PdfCommonDocProtocol] = ..., width: Union[float, Decimal, None] = ..., height: Union[float, Decimal, None] = ...) -> PageObject:
         """
@@ -304,7 +304,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     @property
     def images(self) -> VirtualListImages:
         """
@@ -344,7 +344,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     @property
     def rotation(self) -> int:
         """
@@ -354,11 +354,11 @@ class PageObject(DictionaryObject):
         valid values. This property does not affect ``/Contents``.
         """
         ...
-    
+
     @rotation.setter
     def rotation(self, r: float) -> None:
         ...
-    
+
     def transfer_rotation_to_content(self) -> None:
         """
         Apply the rotation of the page to the content and the media/crop/...
@@ -367,7 +367,7 @@ class PageObject(DictionaryObject):
         It is recommended to apply this function before page merging.
         """
         ...
-    
+
     def rotate(self, angle: int) -> PageObject:
         """
         Rotate a page clockwise by increments of 90 degrees.
@@ -380,7 +380,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def get_contents(self) -> Optional[ContentStream]:
         """
         Access the page contents.
@@ -391,7 +391,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def replace_contents(self, content: Union[None, ContentStream, EncodedStreamObject, ArrayObject]) -> None:
         """
         Replace the page contents with the new content and nullify old objects
@@ -399,7 +399,7 @@ class PageObject(DictionaryObject):
             content: new content; if None delete the content field.
         """
         ...
-    
+
     def merge_page(self, page2: PageObject, expand: bool = ..., over: bool = ...) -> None:
         """
         Merge the content streams of two pages into one.
@@ -419,7 +419,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def merge_transformed_page(self, page2: PageObject, ctm: Union[CompressedTransformationMatrix, Transformation], over: bool = ..., expand: bool = ...) -> None:
         """
         Similar to :meth:`~pypdf._page.PageObject.merge_page`, but a transformation
@@ -435,7 +435,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def merge_scaled_page(self, page2: PageObject, scale: float, over: bool = ..., expand: bool = ...) -> None:
         """
         Similar to :meth:`~pypdf._page.PageObject.merge_page`, but the stream to be merged
@@ -450,7 +450,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def merge_rotated_page(self, page2: PageObject, rotation: float, over: bool = ..., expand: bool = ...) -> None:
         """
         Similar to :meth:`~pypdf._page.PageObject.merge_page`, but the stream to be merged
@@ -465,7 +465,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def merge_translated_page(self, page2: PageObject, tx: float, ty: float, over: bool = ..., expand: bool = ...) -> None:
         """
         Similar to :meth:`~pypdf._page.PageObject.merge_page`, but the stream to be
@@ -481,7 +481,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def add_transformation(self, ctm: Union[Transformation, CompressedTransformationMatrix], expand: bool = ...) -> None:
         """
         Apply a transformation matrix to the page.
@@ -496,7 +496,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def scale(self, sx: float, sy: float) -> None:
         """
         Scale a page by the given factors by applying a transformation matrix
@@ -511,7 +511,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def scale_by(self, factor: float) -> None:
         """
         Scale a page by the given factor by applying a transformation matrix to
@@ -522,7 +522,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def scale_to(self, width: float, height: float) -> None:
         """
         Scale a page to the specified dimensions by applying a transformation
@@ -534,7 +534,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def compress_content_streams(self, level: int = ...) -> None:
         """
         Compress the size of this page by joining all content streams and
@@ -544,7 +544,7 @@ class PageObject(DictionaryObject):
         content stream compression becomes "automatic".
         """
         ...
-    
+
     @property
     def page_number(self) -> Optional[int]:
         """
@@ -555,7 +555,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def extract_text(self, *args: Any, orientations: Union[int, Tuple[int, ...]] = ..., space_width: float = ..., visitor_operand_before: Optional[Callable[[Any, Any, Any, Any], None]] = ..., visitor_operand_after: Optional[Callable[[Any, Any, Any, Any], None]] = ..., visitor_text: Optional[Callable[[Any, Any, Any, Any, Any], None]] = ..., extraction_mode: Literal["plain", "layout"] = ..., **kwargs: Any) -> str:
         """
         Locate all text drawing commands, in the order they are provided in the
@@ -627,7 +627,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     def extract_xform_text(self, xform: EncodedStreamObject, orientations: Tuple[int, ...] = ..., space_width: float = ..., visitor_operand_before: Optional[Callable[[Any, Any, Any, Any], None]] = ..., visitor_operand_after: Optional[Callable[[Any, Any, Any, Any], None]] = ..., visitor_text: Optional[Callable[[Any, Any, Any, Any, Any], None]] = ...) -> str:
         """
         Extract text from an XObject.
@@ -645,7 +645,7 @@ class PageObject(DictionaryObject):
 
         """
         ...
-    
+
     mediabox = ...
     cropbox = ...
     bleedbox = ...
@@ -654,7 +654,7 @@ class PageObject(DictionaryObject):
     @property
     def annotations(self) -> Optional[ArrayObject]:
         ...
-    
+
     @annotations.setter
     def annotations(self, value: Optional[ArrayObject]) -> None:
         """
@@ -665,35 +665,32 @@ class PageObject(DictionaryObject):
         and only add the indirect object.
         """
         ...
-    
+
 
 
 class _VirtualList(Sequence[PageObject]):
     def __init__(self, length_function: Callable[[], int], get_function: Callable[[int], PageObject]) -> None:
         ...
-    
+
     def __len__(self) -> int:
         ...
-    
+
     @overload
     def __getitem__(self, index: int) -> PageObject:
         ...
-    
+
     @overload
     def __getitem__(self, index: slice) -> Sequence[PageObject]:
         ...
-    
+
     def __getitem__(self, index: Union[int, slice]) -> Union[PageObject, Sequence[PageObject]]:
         ...
-    
+
     def __delitem__(self, index: Union[int, slice]) -> None:
         ...
-    
+
     def __iter__(self) -> Iterator[PageObject]:
         ...
-    
+
     def __str__(self) -> str:
         ...
-    
-
-

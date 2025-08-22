@@ -53,4 +53,3 @@ def is_followed_by_binary_data(stream: IO[bytes], length: int = ...) -> bool:
     https://github.com/itext/itext-java/blob/9.1.0/kernel/src/main/java/com/itextpdf/kernel/pdf/canvas/parser/util/InlineImageParsingUtils.java
     """
     ...
-

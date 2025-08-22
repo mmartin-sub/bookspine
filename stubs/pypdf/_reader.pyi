@@ -34,22 +34,22 @@ class PdfReader(PdfDocCommon):
     """
     def __init__(self, stream: Union[StrByteType, Path], strict: bool = ..., password: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     def __enter__(self) -> PdfReader:
         ...
-    
+
     def __exit__(self, exc_type: Optional[Type[BaseException]], exc_val: Optional[BaseException], exc_tb: Optional[TracebackType]) -> None:
         ...
-    
+
     def close(self) -> None:
         """Close the stream if opened in __init__ and clear memory."""
         ...
-    
+
     @property
     def root_object(self) -> DictionaryObject:
         """Provide access to "/Root". Standardized with PdfWriter."""
         ...
-    
+
     @property
     def pdf_header(self) -> str:
         """
@@ -59,24 +59,24 @@ class PdfReader(PdfDocCommon):
         detect if the file is actually a PDF file and which version it is.
         """
         ...
-    
+
     @property
     def xmp_metadata(self) -> Optional[XmpInformation]:
         """XMP (Extensible Metadata Platform) data."""
         ...
-    
+
     def get_object(self, indirect_reference: Union[int, IndirectObject]) -> Optional[PdfObject]:
         ...
-    
+
     def read_object_header(self, stream: StreamType) -> Tuple[int, int]:
         ...
-    
+
     def cache_get_indirect_object(self, generation: int, idnum: int) -> Optional[PdfObject]:
         ...
-    
+
     def cache_indirect_object(self, generation: int, idnum: int, obj: Optional[PdfObject]) -> Optional[PdfObject]:
         ...
-    
+
     def read(self, stream: StreamType) -> None:
         """
         Read and process the PDF stream, extracting necessary data.
@@ -86,7 +86,7 @@ class PdfReader(PdfDocCommon):
 
         """
         ...
-    
+
     def decrypt(self, password: Union[str, bytes]) -> PasswordType:
         """
         When using an encrypted / secured PDF file with the PDF Standard
@@ -108,7 +108,7 @@ class PdfReader(PdfDocCommon):
 
         """
         ...
-    
+
     @property
     def is_encrypted(self) -> bool:
         """
@@ -118,7 +118,7 @@ class PdfReader(PdfDocCommon):
         :meth:`decrypt()<pypdf.PdfReader.decrypt>` method is called.
         """
         ...
-    
+
     def add_form_topname(self, name: str) -> Optional[DictionaryObject]:
         """
         Add a top level form that groups all form fields below it.
@@ -131,7 +131,7 @@ class PdfReader(PdfDocCommon):
 
         """
         ...
-    
+
     def rename_form_topname(self, name: str) -> Optional[DictionaryObject]:
         """
         Rename top level form field that all form fields below it.
@@ -144,6 +144,3 @@ class PdfReader(PdfDocCommon):
 
         """
         ...
-    
-
-

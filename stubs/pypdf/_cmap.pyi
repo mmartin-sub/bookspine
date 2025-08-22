@@ -66,4 +66,3 @@ def compute_space_width(font_width_map: Dict[Any, float], space_char: str) -> fl
 
 def compute_font_width(font_width_map: Dict[Any, float], char: str) -> float:
     ...
-

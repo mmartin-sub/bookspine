@@ -26,7 +26,7 @@ class MarkupAnnotation(AnnotationDictionary, ABC):
     """
     def __init__(self, *, title_bar: Optional[str] = ...) -> None:
         ...
-    
+
 
 
 class Text(MarkupAnnotation):
@@ -43,49 +43,46 @@ class Text(MarkupAnnotation):
     """
     def __init__(self, *, rect: Union[RectangleObject, Tuple[float, float, float, float]], text: str, open: bool = ..., flags: int = ..., **kwargs: Any) -> None:
         ...
-    
+
 
 
 class FreeText(MarkupAnnotation):
     """A FreeText annotation"""
     def __init__(self, *, text: str, rect: Union[RectangleObject, Tuple[float, float, float, float]], font: str = ..., bold: bool = ..., italic: bool = ..., font_size: str = ..., font_color: str = ..., border_color: Optional[str] = ..., background_color: Optional[str] = ..., **kwargs: Any) -> None:
         ...
-    
+
 
 
 class Line(MarkupAnnotation):
     def __init__(self, p1: Vertex, p2: Vertex, rect: Union[RectangleObject, Tuple[float, float, float, float]], text: str = ..., **kwargs: Any) -> None:
         ...
-    
+
 
 
 class PolyLine(MarkupAnnotation):
     def __init__(self, vertices: List[Vertex], **kwargs: Any) -> None:
         ...
-    
+
 
 
 class Rectangle(MarkupAnnotation):
     def __init__(self, rect: Union[RectangleObject, Tuple[float, float, float, float]], *, interior_color: Optional[str] = ..., **kwargs: Any) -> None:
         ...
-    
+
 
 
 class Highlight(MarkupAnnotation):
     def __init__(self, *, rect: Union[RectangleObject, Tuple[float, float, float, float]], quad_points: ArrayObject, highlight_color: str = ..., printing: bool = ..., **kwargs: Any) -> None:
         ...
-    
+
 
 
 class Ellipse(MarkupAnnotation):
     def __init__(self, rect: Union[RectangleObject, Tuple[float, float, float, float]], *, interior_color: Optional[str] = ..., **kwargs: Any) -> None:
         ...
-    
+
 
 
 class Polygon(MarkupAnnotation):
     def __init__(self, vertices: List[Tuple[float, float]], **kwargs: Any) -> None:
         ...
-    
-
-

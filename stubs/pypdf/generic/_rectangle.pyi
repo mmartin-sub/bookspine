@@ -20,45 +20,45 @@ class RectangleObject(ArrayObject):
     """
     def __init__(self, arr: Union[RectangleObject, Tuple[float, float, float, float]]) -> None:
         ...
-    
+
     def scale(self, sx: float, sy: float) -> RectangleObject:
         ...
-    
+
     def __repr__(self) -> str:
         ...
-    
+
     @property
     def left(self) -> FloatObject:
         ...
-    
+
     @left.setter
     def left(self, f: float) -> None:
         ...
-    
+
     @property
     def bottom(self) -> FloatObject:
         ...
-    
+
     @bottom.setter
     def bottom(self, f: float) -> None:
         ...
-    
+
     @property
     def right(self) -> FloatObject:
         ...
-    
+
     @right.setter
     def right(self, f: float) -> None:
         ...
-    
+
     @property
     def top(self) -> FloatObject:
         ...
-    
+
     @top.setter
     def top(self, f: float) -> None:
         ...
-    
+
     @property
     def lower_left(self) -> Tuple[float, float]:
         """
@@ -66,11 +66,11 @@ class RectangleObject(ArrayObject):
         in (x,y) form.
         """
         ...
-    
+
     @lower_left.setter
     def lower_left(self, value: Tuple[float, float]) -> None:
         ...
-    
+
     @property
     def lower_right(self) -> Tuple[float, float]:
         """
@@ -78,11 +78,11 @@ class RectangleObject(ArrayObject):
         in (x,y) form.
         """
         ...
-    
+
     @lower_right.setter
     def lower_right(self, value: Tuple[float, float]) -> None:
         ...
-    
+
     @property
     def upper_left(self) -> Tuple[float, float]:
         """
@@ -90,11 +90,11 @@ class RectangleObject(ArrayObject):
         in (x,y) form.
         """
         ...
-    
+
     @upper_left.setter
     def upper_left(self, value: Tuple[float, float]) -> None:
         ...
-    
+
     @property
     def upper_right(self) -> Tuple[float, float]:
         """
@@ -102,18 +102,15 @@ class RectangleObject(ArrayObject):
         in (x,y) form.
         """
         ...
-    
+
     @upper_right.setter
     def upper_right(self, value: Tuple[float, float]) -> None:
         ...
-    
+
     @property
     def width(self) -> float:
         ...
-    
+
     @property
     def height(self) -> float:
         ...
-    
-
-

@@ -12,16 +12,16 @@ class PdfObjectProtocol(Protocol):
     indirect_reference: Any
     def clone(self, pdf_dest: Any, force_duplicate: bool = ..., ignore_fields: Union[Tuple[str, ...], List[str], None] = ...) -> Any:
         ...
-    
+
     def get_object(self) -> Optional[PdfObjectProtocol]:
         ...
-    
+
     def hash_value(self) -> bytes:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
 
 
 class XmpInformationProtocol(PdfObjectProtocol):
@@ -32,22 +32,22 @@ class PdfCommonDocProtocol(Protocol):
     @property
     def pdf_header(self) -> str:
         ...
-    
+
     @property
     def pages(self) -> List[Any]:
         ...
-    
+
     @property
     def root_object(self) -> PdfObjectProtocol:
         ...
-    
+
     def get_object(self, indirect_reference: Any) -> Optional[PdfObjectProtocol]:
         ...
-    
+
     @property
     def strict(self) -> bool:
         ...
-    
+
 
 
 class PdfReaderProtocol(PdfCommonDocProtocol, Protocol):
@@ -55,12 +55,12 @@ class PdfReaderProtocol(PdfCommonDocProtocol, Protocol):
     @abstractmethod
     def xref(self) -> Dict[int, Dict[int, Any]]:
         ...
-    
+
     @property
     @abstractmethod
     def trailer(self) -> Dict[str, Any]:
         ...
-    
+
 
 
 class PdfWriterProtocol(PdfCommonDocProtocol, Protocol):
@@ -71,6 +71,3 @@ class PdfWriterProtocol(PdfCommonDocProtocol, Protocol):
     @abstractmethod
     def write(self, stream: Union[Path, StrByteType]) -> Tuple[bool, IO[Any]]:
         ...
-    
-
-
