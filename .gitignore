@@ -54,3 +54,4 @@ lcov.info
 tests/htmlcov/
 
 .env
+stubs/

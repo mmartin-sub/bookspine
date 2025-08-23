@@ -126,7 +126,10 @@ packages = ["src/bookspine", "src/kte"]
 # `dev` and `test` groups defined in [project.optional-dependencies].
 # Hatch automatically includes the project itself ('bookspine') in editable mode.
 # i.e.  uv sync --extra dev --extra test --extra remote --extra keybert
+# not sure if extra is still needed
 extras = ["dev", "test", "remote", "keybert", "local-models"]
+# dependencies = [".[dev,test,remote,keybert,local-models]"] if you prefer explicit PEP 621 syntax)
+features = ["dev", "test", "remote", "keybert", "local-models"]
 path = ".venv"
 installer = "uv"
 python = "3.12"
