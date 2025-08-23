@@ -10,7 +10,7 @@ from unittest.mock import MagicMock, mock_open, patch
 
 import pytest
 
-from src.bookspine.core.pdf_processor import PDFProcessingError, PDFProcessor
+from bookspine.core.pdf_processor import PDFProcessingError, PDFProcessor
 
 
 class TestPDFProcessor(unittest.TestCase):
@@ -60,7 +60,7 @@ class TestPDFProcessor(unittest.TestCase):
         finally:
             os.unlink(temp_file_path)
 
-    @patch("src.bookspine.core.pdf_processor.PdfReader")
+    @patch("bookspine.core.pdf_processor.PdfReader")
     @patch("builtins.open", new_callable=mock_open, read_data=b"fake pdf content")
     @patch("pathlib.Path.exists", return_value=True)
     @patch("pathlib.Path.stat")
@@ -87,7 +87,7 @@ class TestPDFProcessor(unittest.TestCase):
         self.assertEqual(result, 3)
         mock_pdf_reader.assert_called_once()
 
-    @patch("src.bookspine.core.pdf_processor.PdfReader")
+    @patch("bookspine.core.pdf_processor.PdfReader")
     @patch("builtins.open", new_callable=mock_open, read_data=b"fake pdf content")
     @patch("pathlib.Path.exists", return_value=True)
     @patch("pathlib.Path.stat")
@@ -107,7 +107,7 @@ class TestPDFProcessor(unittest.TestCase):
 
         self.assertIn("PDF is encrypted", str(context.exception))
 
-    @patch("src.bookspine.core.pdf_processor.PdfReader")
+    @patch("bookspine.core.pdf_processor.PdfReader")
     @patch("builtins.open", new_callable=mock_open, read_data=b"fake pdf content")
     @patch("pathlib.Path.exists", return_value=True)
     @patch("pathlib.Path.stat")
@@ -127,7 +127,7 @@ class TestPDFProcessor(unittest.TestCase):
 
         self.assertIn("PDF contains no pages", str(context.exception))
 
-    @patch("src.bookspine.core.pdf_processor.PdfReader")
+    @patch("bookspine.core.pdf_processor.PdfReader")
     @patch("builtins.open", new_callable=mock_open, read_data=b"fake pdf content")
     @patch("pathlib.Path.exists", return_value=True)
     @patch("pathlib.Path.stat")
@@ -150,7 +150,7 @@ class TestPDFProcessor(unittest.TestCase):
 
         self.assertIn("invalid page dimensions", str(context.exception))
 
-    @patch("src.bookspine.core.pdf_processor.PdfReader")
+    @patch("bookspine.core.pdf_processor.PdfReader")
     @patch("builtins.open", new_callable=mock_open, read_data=b"fake pdf content")
     @patch("pathlib.Path.exists", return_value=True)
     @patch("pathlib.Path.stat")
@@ -173,7 +173,7 @@ class TestPDFProcessor(unittest.TestCase):
 
         self.assertIn("too small to be a valid book", str(context.exception))
 
-    @patch("src.bookspine.core.pdf_processor.PdfReader")
+    @patch("bookspine.core.pdf_processor.PdfReader")
     @patch("builtins.open", new_callable=mock_open)
     @patch("pathlib.Path.exists", return_value=True)
     @patch("pathlib.Path.stat")

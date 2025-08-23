@@ -15,10 +15,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.bookspine import BookMetadata, ConfigLoader, SpineCalculator
-from src.bookspine.core.pdf_processor import PDFProcessingError, PDFProcessor
-from src.bookspine.models.book_metadata import ValidationError
-from src.bookspine.models.spine_result import SpineResult
+from bookspine import BookMetadata, ConfigLoader, SpineCalculator
+from bookspine.core.pdf_processor import PDFProcessingError, PDFProcessor
+from bookspine.models.book_metadata import ValidationError
+from bookspine.models.spine_result import SpineResult
 
 
 class TestEndToEndWorkflows:
@@ -320,7 +320,7 @@ class TestCLIIntegrationWorkflows:
 
     def test_cli_basic_workflow(self):
         """Test basic CLI workflow."""
-        from src.bookspine.cli import main
+        from bookspine.cli import main
 
         # Test with basic arguments
         test_args = [
@@ -343,7 +343,7 @@ class TestCLIIntegrationWorkflows:
 
     def test_cli_output_formats_workflow(self):
         """Test CLI output formats workflow."""
-        from src.bookspine.cli import main
+        from bookspine.cli import main
 
         # Test different output formats
         formats = ["text", "json", "csv"]
@@ -369,7 +369,7 @@ class TestCLIIntegrationWorkflows:
 
     def test_cli_printer_service_workflow(self):
         """Test CLI printer service workflow."""
-        from src.bookspine.cli import main
+        from bookspine.cli import main
 
         # Test with printer service
         test_args = [
@@ -388,7 +388,7 @@ class TestCLIIntegrationWorkflows:
 
     def test_cli_manual_override_workflow(self):
         """Test CLI manual override workflow."""
-        from src.bookspine.cli import main
+        from bookspine.cli import main
 
         # Test with manual override
         test_args = [

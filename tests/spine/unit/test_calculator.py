@@ -7,9 +7,9 @@ from unittest.mock import Mock
 
 import pytest
 
-from src.bookspine.core.calculator import CalculationError, SpineCalculator
-from src.bookspine.models.book_metadata import BookMetadata
-from src.bookspine.models.spine_result import SpineResult
+from bookspine.core.calculator import CalculationError, SpineCalculator
+from bookspine.models.book_metadata import BookMetadata
+from bookspine.models.spine_result import SpineResult
 
 
 class TestSpineCalculator:
@@ -177,7 +177,7 @@ class TestSpineCalculator:
     def test_calculate_spine_width_invalid_page_count(self):
         """Test error handling for invalid page count."""
         # BookMetadata validation will catch this first, so we test the ValidationError
-        from src.bookspine.models.book_metadata import ValidationError
+        from bookspine.models.book_metadata import ValidationError
 
         with pytest.raises(ValidationError, match="Page count must be positive"):
             BookMetadata(
@@ -208,7 +208,7 @@ class TestSpineCalculator:
     def test_calculate_spine_width_unsupported_binding_type(self):
         """Test error handling for unsupported binding type."""
         # BookMetadata validation will catch this first, so we test the ValidationError
-        from src.bookspine.models.book_metadata import ValidationError
+        from bookspine.models.book_metadata import ValidationError
 
         with pytest.raises(ValidationError, match="Invalid binding type"):
             BookMetadata(
@@ -249,7 +249,7 @@ class TestSpineCalculator:
     def test_calculate_spine_width_unsupported_paper_type(self):
         """Test error handling for unsupported paper type."""
         # BookMetadata validation will catch this first, so we test the ValidationError
-        from src.bookspine.models.book_metadata import ValidationError
+        from bookspine.models.book_metadata import ValidationError
 
         with pytest.raises(ValidationError, match="Invalid paper type"):
             BookMetadata(

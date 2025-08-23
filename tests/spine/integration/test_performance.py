@@ -15,8 +15,8 @@ from unittest.mock import MagicMock, patch
 import psutil
 import pytest
 
-from src.bookspine import BookMetadata, ConfigLoader, SpineCalculator
-from src.bookspine.core.pdf_processor import PDFProcessor
+from bookspine import BookMetadata, ConfigLoader, SpineCalculator
+from bookspine.core.pdf_processor import PDFProcessor
 from tests.test_utils import PDFTestUtils, PerformanceTestUtils, TestDataUtils
 
 

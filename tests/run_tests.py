@@ -30,7 +30,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import List, Optional
+from typing import Optional
 
 
 class TestRunner:
@@ -45,7 +45,7 @@ class TestRunner:
         self.results_dir.parent.mkdir(exist_ok=True)
         self.results_dir.mkdir(exist_ok=True)
 
-    def run_command(self, command: List[str], capture_output: bool = False) -> subprocess.CompletedProcess:
+    def run_command(self, command: list[str], capture_output: bool = False) -> subprocess.CompletedProcess:
         """Run a command and return the result."""
         print(f"Running: {' '.join(command)}")
         start_time = time.time()
@@ -59,7 +59,7 @@ class TestRunner:
             print(f"Error running command: {e}")
             sys.exit(1)
 
-    def run_pytest(self, args: List[str], coverage: bool = True) -> subprocess.CompletedProcess:
+    def run_pytest(self, args: list[str], coverage: bool = True) -> subprocess.CompletedProcess:
         """Run pytest with the given arguments."""
         pytest_args = ["python", "-m", "pytest"]
 

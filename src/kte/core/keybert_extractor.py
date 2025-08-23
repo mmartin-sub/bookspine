@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from ..models.extraction_options import ExtractionOptions
 from ..models.keyword_result import KeywordResult
+from .universal_embedder import UniversalEmbedder
 
 
 class KeyBERTExtractor:
@@ -21,45 +22,22 @@ class KeyBERTExtractor:
     using the KeyBERT algorithm, with support for various configuration options.
     """
 
-    def __init__(self):
+    def __init__(self, engine: str, api_url: str, auth_token: Optional[str] = None, model_name: Optional[str] = "default"):
         """
         Initialize the KeyBERT extractor.
+
+        Args:
+            engine: The inference engine to use ('huggingface', 'stapi', 'infinity', or 'local').
+            api_url: The URL of the inference API.
+            auth_token: The authentication token for the API.
+            model_name: The name of the model to use.
         """
         self._model: Optional[Any] = None
         self._initialized = False
-        self._configure_huggingface()
-
-    def _configure_huggingface(self):
-        """
-        Configure Hugging Face Hub settings to reduce rate limiting.
-        """
-        # Disable telemetry to reduce API calls
-        os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
-
-        # Disable implicit token to avoid unnecessary auth requests
-        os.environ.setdefault("HF_HUB_DISABLE_IMPLICIT_TOKEN", "1")
-
-        # Set cache directory to local path
-        cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "huggingface")
-        os.environ.setdefault("HF_HOME", cache_dir)
-
-        # Check for Hugging Face API token for better rate limits
-        hf_token = os.environ.get("HF_TOKEN")
-        if hf_token:
-            os.environ["HF_TOKEN"] = hf_token
-        else:
-            # Log warning about potential rate limiting
-            import logging
-
-            logger = logging.getLogger(__name__)
-            logger.warning(
-                "No HF_TOKEN found. For better rate limits, set HF_TOKEN environment variable. "
-                "Get a free token at: https://huggingface.co/settings/tokens"
-            )
-
-        # Enable offline mode if models are cached
-        if os.path.exists(cache_dir):
-            os.environ.setdefault("HF_HUB_OFFLINE", "1")
+        self.engine = engine
+        self.api_url = api_url
+        self.auth_token = auth_token
+        self.model_name = model_name
 
     def extract_keywords(self, text: str, options: ExtractionOptions) -> List[KeywordResult]:
         """
@@ -107,30 +85,32 @@ class KeyBERTExtractor:
         """
         try:
             from keybert import KeyBERT
-            from sentence_transformers import SentenceTransformer
 
-            # Use a lightweight model for faster processing
-            model_name = "all-MiniLM-L6-v2"
+            if self.engine == "local":
+                from sentence_transformers import SentenceTransformer
+                embedder = SentenceTransformer(self.model_name)
+            else:
+                embedder = UniversalEmbedder(
+                    engine=self.engine,
+                    api_url=self.api_url,
+                    auth_token=self.auth_token,
+                    model_name=self.model_name,
+                )
 
-            # Check if model is already loaded
-            if self._model is not None:
-                return
-
-            # Initialize with caching and reduced verbosity
-            sentence_model = SentenceTransformer(
-                model_name,
-                cache_folder=os.path.join(os.path.expanduser("~"), ".cache", "huggingface"),
-                device="cpu",  # Use CPU for consistency
-            )
-
-            self._model = KeyBERT(model=sentence_model)
+            self._model = KeyBERT(model=embedder)
             self._initialized = True
 
         except ImportError:
-            raise ImportError(
-                "KeyBERT and sentence-transformers are required for keyword extraction. "
-                "Install with: pip install keybert sentence-transformers"
-            )
+            if self.engine == "local":
+                raise ImportError(
+                    "KeyBERT and sentence-transformers are required for the 'local' extraction method. "
+                    "Install with: pip install '.[local-models]'"
+                )
+            else:
+                raise ImportError(
+                    "KeyBERT is required for keyword extraction. "
+                    "Install with: pip install keybert"
+                )
         except Exception as e:
             raise Exception(f"Failed to initialize KeyBERT model: {str(e)}")
 

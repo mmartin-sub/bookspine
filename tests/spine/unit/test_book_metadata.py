@@ -6,7 +6,7 @@ import unittest
 
 import pytest
 
-from src.bookspine.models.book_metadata import BookMetadata, ValidationError
+from bookspine.models.book_metadata import BookMetadata, ValidationError
 
 
 class TestBookMetadata(unittest.TestCase):

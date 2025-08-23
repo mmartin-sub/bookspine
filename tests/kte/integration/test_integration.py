@@ -12,13 +12,17 @@ from pathlib import Path
 
 import pytest
 
-from src.kte import ExtractionOptions, extract_keywords
-from src.kte.models.extraction_result import ExtractionResult
-from tests.test_utils import TestAssertionUtils, TestDataUtils
+from kte import ExtractionOptions, extract_keywords
+from kte.models.extraction_result import ExtractionResult
+from test_utils import TestAssertionUtils, TestDataUtils
 
 
 class TestKTEIntegration:
     """Integration tests for the complete KTE pipeline."""
+
+    def setup_method(self):
+        """Set up test fixtures."""
+        os.environ["KTE_ENGINE"] = "local"
 
     def test_complete_extraction_pipeline_text_input(self):
         """Test complete extraction pipeline with text input."""
@@ -274,3 +278,59 @@ class TestKTEIntegration:
         phrases = result.get_phrases_only()
         if phrases:
             assert all(kw.is_phrase for kw in phrases)
+
+
+class TestKTEIntegrationWithEngines(unittest.TestCase):
+    """Integration tests for the KTE pipeline with different engines."""
+
+    @patch("requests.post")
+    def test_hf_engine(self, mock_post):
+        """Test the Hugging Face Inference API engine."""
+        os.environ["KTE_ENGINE"] = "hf"
+        os.environ["KTE_API_URL"] = "https://api.example.com"
+        os.environ["KTE_AUTH_TOKEN"] = "test_token"
+
+        mock_response = unittest.mock.Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [[0.1, 0.2, 0.3]]
+        mock_post.return_value = mock_response
+
+        text = TestDataUtils.create_sample_text()
+        result = extract_keywords(text)
+
+        self.assertIsInstance(result, ExtractionResult)
+        self.assertEqual(result.extraction_method, "KeyBERT")
+
+    @patch("requests.post")
+    def test_stapi_engine(self, mock_post):
+        """Test the STAPI engine."""
+        os.environ["KTE_ENGINE"] = "stapi"
+        os.environ["KTE_API_URL"] = "http://localhost:8000/v1/embeddings"
+
+        mock_response = unittest.mock.Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"data": [{"embedding": [0.1, 0.2, 0.3]}]}
+        mock_post.return_value = mock_response
+
+        text = TestDataUtils.create_sample_text()
+        result = extract_keywords(text)
+
+        self.assertIsInstance(result, ExtractionResult)
+        self.assertEqual(result.extraction_method, "KeyBERT")
+
+    @patch("requests.post")
+    def test_infinity_engine(self, mock_post):
+        """Test the Infinity engine."""
+        os.environ["KTE_ENGINE"] = "infinity"
+        os.environ["KTE_API_URL"] = "http://localhost:7997/embeddings"
+
+        mock_response = unittest.mock.Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"data": [{"embedding": [0.1, 0.2, 0.3]}]}
+        mock_post.return_value = mock_response
+
+        text = TestDataUtils.create_sample_text()
+        result = extract_keywords(text)
+
+        self.assertIsInstance(result, ExtractionResult)
+        self.assertEqual(result.extraction_method, "KeyBERT")

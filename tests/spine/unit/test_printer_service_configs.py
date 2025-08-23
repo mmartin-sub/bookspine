@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from src.bookspine.config.config_loader import ConfigLoader, ConfigurationError
+from bookspine.config.config_loader import ConfigLoader, ConfigurationError
 
 
 class TestPrinterServiceConfigs(unittest.TestCase):

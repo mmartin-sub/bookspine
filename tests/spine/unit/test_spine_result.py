@@ -10,8 +10,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from src.bookspine.models.book_metadata import BookMetadata
-from src.bookspine.models.spine_result import SpineResult
+from bookspine.models.book_metadata import BookMetadata
+from bookspine.models.spine_result import SpineResult
 
 
 class TestSpineResult:

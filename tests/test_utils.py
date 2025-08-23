@@ -9,7 +9,6 @@ import os
 import tempfile
 import time
 from pathlib import Path
-from typing import List, Tuple
 
 
 class PDFTestUtils:
@@ -69,7 +68,7 @@ class PDFTestUtils:
             return tmp_file.name
 
     @staticmethod
-    def create_multiple_test_pdfs(page_counts: List[int]) -> List[str]:
+    def create_multiple_test_pdfs(page_counts: list[int]) -> list[str]:
         """
         Create multiple test PDF files with specified page counts.
 
@@ -86,7 +85,7 @@ class PDFTestUtils:
         return pdf_files
 
     @staticmethod
-    def cleanup_pdf_files(pdf_files: List[str]) -> None:
+    def cleanup_pdf_files(pdf_files: list[str]) -> None:
         """
         Clean up test PDF files.
 
@@ -120,7 +119,7 @@ class PerformanceTestUtils:
             return 0.0  # psutil not available
 
     @staticmethod
-    def measure_execution_time(func, *args, **kwargs) -> Tuple[any, float]:
+    def measure_execution_time(func, *args, **kwargs) -> tuple[any, float]:
         """
         Measure execution time of a function.
 
@@ -142,7 +141,7 @@ class TestDataUtils:
     """Utilities for creating test data."""
 
     @staticmethod
-    def create_book_metadata_cases() -> List[Tuple[int, str, str, float]]:
+    def create_book_metadata_cases() -> list[tuple[int, str, str, float]]:
         """
         Create a list of test cases for book metadata.
 
