@@ -22,7 +22,9 @@ class KeyBERTExtractor:
     using the KeyBERT algorithm, with support for various configuration options.
     """
 
-    def __init__(self, engine: str, api_url: str, auth_token: Optional[str] = None, model_name: Optional[str] = "default"):
+    def __init__(
+        self, engine: str, api_url: str, auth_token: Optional[str] = None, model_name: Optional[str] = "default"
+    ):
         """
         Initialize the KeyBERT extractor.
 
@@ -88,6 +90,7 @@ class KeyBERTExtractor:
 
             if self.engine == "local":
                 from sentence_transformers import SentenceTransformer
+
                 embedder = SentenceTransformer(self.model_name)
             else:
                 embedder = UniversalEmbedder(
@@ -107,10 +110,7 @@ class KeyBERTExtractor:
                     "Install with: pip install '.[local-models]'"
                 )
             else:
-                raise ImportError(
-                    "KeyBERT is required for keyword extraction. "
-                    "Install with: pip install keybert"
-                )
+                raise ImportError("KeyBERT is required for keyword extraction. Install with: pip install keybert")
         except Exception as e:
             raise Exception(f"Failed to initialize KeyBERT model: {str(e)}")
 

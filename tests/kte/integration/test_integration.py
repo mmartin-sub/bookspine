@@ -4,17 +4,16 @@ Integration tests for KTE module.
 This module tests the complete keyword extraction pipeline from input to output.
 """
 
-import json
 import os
 import tempfile
 import unittest
-from pathlib import Path
+from unittest.mock import patch
 
 import pytest
+from utils_test_lib import TestAssertionUtils, TestDataUtils
 
 from kte import ExtractionOptions, extract_keywords
 from kte.models.extraction_result import ExtractionResult
-from test_utils import TestAssertionUtils, TestDataUtils
 
 
 class TestKTEIntegration:

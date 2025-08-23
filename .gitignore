@@ -42,3 +42,15 @@ Thumbs.db
 # Secret files
 .secrets
 !.secrets.baseline
+
+.history
+
+# Coverage reports and data
+.coverage
+.coverage.*
+coverage.xml
+lcov.info
+.coverage_data/
+tests/htmlcov/
+
+.env

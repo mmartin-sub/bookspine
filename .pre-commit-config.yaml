@@ -1,4 +1,3 @@
----
 default_language_version:
     python: python3.12
 repos:
@@ -59,7 +58,8 @@ repos:
           language_version: python3.12
           additional_dependencies: [mypy]
           types: [python]
-          args: [--config-file=mypy.ini, src/bookspine/, src/kte/]
+          # The --config-file flag is removed to allow mypy to auto-detect pyproject.toml
+          args: [src/bookspine/, src/kte/]
           pass_filenames: false
           always_run: true
 
@@ -115,3 +115,28 @@ repos:
 #        args: ['-x', '--tb=short', 'tests/']
 #        pass_filenames: false
 #        always_run: true
+
+    - repo: local
+      hooks:
+        - id: pyright
+          name: pyright
+          # The command that pre-commit will execute
+          entry: hatch run pyright
+          language: system
+          types: [python]
+          # Pass the files to the command
+          # This is important so pyright checks only the files staged for commit
+          files: ^src/
+          pass_filenames: false
+
+    - repo: https://github.com/astral-sh/uv-pre-commit
+      rev: "0.8.13"
+      hooks:
+        # Update the uv lockfile
+        - id: uv-lock
+          name: Check that uv.lock is up-to-date
+          # These arguments MUST match the command you use to generate the lock file
+          # args: [--all-extras]
+          # This hook should only run when the files that affect dependencies change
+          files: ^(pyproject\.toml|uv\.lock)$
+          # language_version: python3.12

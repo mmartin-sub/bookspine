@@ -1,20 +1,19 @@
-import requests
+from typing import List, Literal, Optional
+
 import numpy as np
+import requests
 from keybert.backend import BaseEmbedder
-from typing import List, Optional, Literal
 
 EngineType = Literal["huggingface", "stapi", "infinity"]
+
 
 class UniversalEmbedder(BaseEmbedder):
     """
     A single, universal backend that can connect to multiple inference engines.
     """
+
     def __init__(
-        self,
-        engine: EngineType,
-        api_url: str,
-        auth_token: Optional[str] = None,
-        model_name: Optional[str] = "default"
+        self, engine: EngineType, api_url: str, auth_token: Optional[str] = None, model_name: Optional[str] = "default"
     ):
         super().__init__()
         self.engine = engine
@@ -55,6 +54,6 @@ class UniversalEmbedder(BaseEmbedder):
 
         elif self.engine in ["stapi", "infinity"]:
             # Nested embedding data
-            embeddings = [item['embedding'] for item in response_data['data']]
+            embeddings = [item["embedding"] for item in response_data["data"]]
 
         return np.array(embeddings)

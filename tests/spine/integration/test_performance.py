@@ -17,7 +17,7 @@ import pytest
 
 from bookspine import BookMetadata, ConfigLoader, SpineCalculator
 from bookspine.core.pdf_processor import PDFProcessor
-from tests.test_utils import PDFTestUtils, PerformanceTestUtils, TestDataUtils
+from tests.utils_test_lib import PDFTestUtils, PerformanceTestUtils, TestDataUtils
 
 
 class TestMemoryUsagePerformance:
@@ -163,7 +163,7 @@ class TestParallelExecutionPerformance:
         parallel_time = time.time() - start_time
 
         # Verify results are consistent
-        for seq_result, par_result in zip(sequential_results, parallel_results):
+        for seq_result, par_result in zip(sequential_results, parallel_results, strict=False):
             assert abs(seq_result.width_mm - par_result.width_mm) < 0.001
 
         print(f"Sequential time: {sequential_time:.3f}s")
@@ -193,7 +193,7 @@ class TestParallelExecutionPerformance:
             parallel_time = time.time() - start_time
 
             # Verify results
-            for expected, actual in zip(page_counts, results):
+            for expected, actual in zip(page_counts, results, strict=False):
                 assert expected == actual
 
             print(f"Parallel PDF processing time: {parallel_time:.3f}s")

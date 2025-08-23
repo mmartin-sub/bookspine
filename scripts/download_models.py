@@ -10,9 +10,14 @@ import os
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 # Configuration constants
 DISABLE_TELEMETRY = "1"  # nosec B105 - Disable HF telemetry
 DISABLE_IMPLICIT_TOKEN = "1"  # nosec B105 - Disable implicit token usage
+
+# will load variables from .env into os.environ
+load_dotenv()
 
 
 def download_models():

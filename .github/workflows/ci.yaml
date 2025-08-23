@@ -41,6 +41,7 @@ jobs:
         hatch run typing
 
     - name: Run tests with coverage
+      # run: hatch run test:run
       run: hatch run test-cov
       env:
         COVERAGE_FILE: .coverage.${{ matrix.python-version }}

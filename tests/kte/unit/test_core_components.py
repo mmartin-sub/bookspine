@@ -11,8 +11,6 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from src.kte.core.header_weighting import HeaderWeighting
-from src.kte.core.input_handler import InputHandler
 from kte.core.keybert_extractor import KeyBERTExtractor
 from kte.core.output_handler import OutputHandler
 from kte.core.result_formatter import ResultFormatter
@@ -20,6 +18,8 @@ from kte.models.extraction_options import ExtractionOptions
 from kte.models.extraction_result import ExtractionResult
 from kte.models.keyword_result import KeywordResult
 from kte.utils.text_preprocessor import TextPreprocessor
+from src.kte.core.header_weighting import HeaderWeighting
+from src.kte.core.input_handler import InputHandler
 
 
 class TestInputHandler:

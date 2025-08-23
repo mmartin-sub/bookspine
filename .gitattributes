@@ -60,4 +60,5 @@ package-lock.json text merge=npm-merge-driver
 stubs/** linguist-generated=true -diff -merge
 
 # git config --global merge.ours.driver true
-uv.lock merge=ours
+# git config --global merge.regenerate-uv-lock.driver "git checkout --ours pyproject.toml && uv lock"
+uv.lock merge=regenerate-uv-lock
