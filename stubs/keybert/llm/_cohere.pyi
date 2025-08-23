@@ -64,7 +64,7 @@ class Cohere(BaseLLM):
     """
     def __init__(self, client, model: str = ..., prompt: str = ..., delay_in_seconds: float = ..., verbose: bool = ...) -> None:
         ...
-    
+
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = ...): # -> list[Any]:
         """Extract topics.
 
@@ -79,6 +79,3 @@ class Cohere(BaseLLM):
             all_keywords: All keywords for each document
         """
         ...
-    
-
-

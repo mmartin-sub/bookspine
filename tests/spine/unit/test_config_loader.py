@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.bookspine.config.config_loader import ConfigLoader, ConfigurationError
+from bookspine.config.config_loader import ConfigLoader, ConfigurationError
 
 
 class TestConfigLoader(unittest.TestCase):

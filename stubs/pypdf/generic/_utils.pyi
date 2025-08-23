@@ -36,4 +36,3 @@ def create_string_object(string: Union[str, bytes], forced_encoding: Union[None,
 
 def decode_pdfdocencoding(byte_array: bytes) -> str:
     ...
-

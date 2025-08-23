@@ -16,7 +16,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.bookspine.cli import main, parse_args, validate_cli_arguments, validate_required_arguments
+from bookspine.cli import main, parse_args, validate_cli_arguments, validate_required_arguments
 
 
 class TestCLIArgumentParsing:
@@ -114,7 +114,7 @@ class TestCLIValidation:
 
     def setup_method(self):
         """Set up test fixtures."""
-        from src.bookspine.config.config_loader import ConfigLoader
+        from bookspine.config.config_loader import ConfigLoader
 
         self.config_loader = ConfigLoader()
 
@@ -241,7 +241,7 @@ class TestCLIExecution:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
                 "--paper-type",
@@ -265,7 +265,7 @@ class TestCLIExecution:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
                 "--paper-type",
@@ -298,7 +298,7 @@ class TestCLIExecution:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
                 "--paper-type",
@@ -368,7 +368,7 @@ class TestCLIExecution:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
                 "--printer-service",
@@ -389,7 +389,7 @@ class TestCLIExecution:
     def test_cli_list_services(self):
         """Test CLI list services functionality."""
         result = subprocess.run(
-            [sys.executable, "-m", "src.bookspine.cli", "--list-services"], capture_output=True, text=True
+            [sys.executable, "-m", "bookspine.cli", "--list-services"], capture_output=True, text=True
         )
 
         assert result.returncode == 0
@@ -397,7 +397,7 @@ class TestCLIExecution:
 
     def test_cli_help(self):
         """Test CLI help functionality."""
-        result = subprocess.run([sys.executable, "-m", "src.bookspine.cli", "--help"], capture_output=True, text=True)
+        result = subprocess.run([sys.executable, "-m", "bookspine.cli", "--help"], capture_output=True, text=True)
 
         assert result.returncode == 0
         assert "Calculate book spine dimensions" in result.stdout
@@ -412,7 +412,7 @@ class TestCLIErrorHandling:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
             ],
@@ -429,7 +429,7 @@ class TestCLIErrorHandling:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "0",
                 "--paper-type",
@@ -452,7 +452,7 @@ class TestCLIErrorHandling:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
                 "--paper-type",
@@ -475,7 +475,7 @@ class TestCLIErrorHandling:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
                 "--paper-type",
@@ -513,7 +513,7 @@ class TestCLIExitCodes:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "200",
                 "--paper-type",
@@ -535,7 +535,7 @@ class TestCLIExitCodes:
             [
                 sys.executable,
                 "-m",
-                "src.bookspine.cli",
+                "bookspine.cli",
                 "--page-count",
                 "0",
                 "--paper-type",
@@ -553,14 +553,14 @@ class TestCLIExitCodes:
 
     def test_cli_help_exit_code(self):
         """Test CLI help exit code."""
-        result = subprocess.run([sys.executable, "-m", "src.bookspine.cli", "--help"], capture_output=True, text=True)
+        result = subprocess.run([sys.executable, "-m", "bookspine.cli", "--help"], capture_output=True, text=True)
 
         assert result.returncode == 0
 
     def test_cli_list_services_exit_code(self):
         """Test CLI list services exit code."""
         result = subprocess.run(
-            [sys.executable, "-m", "src.bookspine.cli", "--list-services"], capture_output=True, text=True
+            [sys.executable, "-m", "bookspine.cli", "--list-services"], capture_output=True, text=True
         )
 
         assert result.returncode == 0

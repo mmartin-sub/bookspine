@@ -10,13 +10,10 @@ f_obj = ...
 class ViewerPreferences(DictionaryObject):
     def __init__(self, obj: Optional[DictionaryObject] = ...) -> None:
         ...
-    
+
     @property
     def PRINT_SCALING(self) -> NameObject:
         ...
-    
+
     def __new__(cls: Any, value: Any = ...) -> ViewerPreferences:
         ...
-    
-
-

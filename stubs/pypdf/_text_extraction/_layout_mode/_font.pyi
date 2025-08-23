@@ -32,15 +32,12 @@ class Font:
     interpretable: bool = ...
     def __post_init__(self) -> None:
         ...
-    
+
     def word_width(self, word: str) -> float:
         """Sum of character widths specified in PDF font for the supplied word"""
         ...
-    
+
     @staticmethod
     def to_dict(font_instance: Font) -> Dict[str, Any]:
         """Dataclass to dict for json.dumps serialization."""
         ...
-    
-
-

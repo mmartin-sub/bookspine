@@ -70,7 +70,7 @@ class TextGenerationInference(BaseLLM):
     """
     def __init__(self, client: InferenceClient, prompt: str = ..., json_schema: BaseModel = ...) -> None:
         ...
-    
+
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = ..., inference_kwargs: Mapping[str, Any] = ...): # -> Any | list[Any]:
         """Extract topics.
 
@@ -86,6 +86,3 @@ class TextGenerationInference(BaseLLM):
             all_keywords: All keywords for each document
         """
         ...
-    
-
-

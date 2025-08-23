@@ -8,12 +8,9 @@ class NotInstalled:
     """
     def __init__(self, tool, dep, custom_msg=...) -> None:
         ...
-    
+
     def __getattr__(self, *args, **kwargs):
         ...
-    
+
     def __call__(self, *args, **kwargs):
         ...
-    
-
-

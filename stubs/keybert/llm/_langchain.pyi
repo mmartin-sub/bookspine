@@ -66,7 +66,7 @@ class LangChain(BaseLLM):
     """
     def __init__(self, chain, prompt: str = ..., verbose: bool = ...) -> None:
         ...
-    
+
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = ...): # -> list[Any]:
         """Extract topics.
 
@@ -81,6 +81,3 @@ class LangChain(BaseLLM):
             all_keywords: All keywords for each document
         """
         ...
-    
-
-

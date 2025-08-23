@@ -13,7 +13,7 @@ from pathlib import Path
 import psutil
 import pytest
 
-from src.kte import ExtractionOptions, extract_keywords
+from kte import ExtractionOptions, extract_keywords
 
 
 class TestKTEPerformance:

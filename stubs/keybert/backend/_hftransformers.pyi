@@ -30,7 +30,7 @@ class HFTransformerBackend(BaseEmbedder):
     """
     def __init__(self, embedding_model: Pipeline) -> None:
         ...
-    
+
     def embed(self, documents: List[str], verbose: bool = ...) -> np.ndarray:
         """Embed a list of n documents/words into an n-dimensional matrix of embeddings.
 
@@ -43,19 +43,16 @@ class HFTransformerBackend(BaseEmbedder):
             that each have an embeddings size of `m`
         """
         ...
-    
+
 
 
 class MyDataset(Dataset):
     """Dataset to pass to `transformers.pipelines.pipeline`."""
     def __init__(self, docs) -> None:
         ...
-    
+
     def __len__(self): # -> int:
         ...
-    
+
     def __getitem__(self, idx):
         ...
-    
-
-

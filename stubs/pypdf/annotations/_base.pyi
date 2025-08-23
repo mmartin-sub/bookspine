@@ -9,15 +9,15 @@ from ..generic._data_structures import DictionaryObject
 class AnnotationDictionary(DictionaryObject, ABC):
     def __init__(self) -> None:
         ...
-    
+
     @property
     def flags(self) -> AnnotationFlag:
         ...
-    
+
     @flags.setter
     def flags(self, value: AnnotationFlag) -> None:
         ...
-    
+
 
 
 NO_FLAGS = ...

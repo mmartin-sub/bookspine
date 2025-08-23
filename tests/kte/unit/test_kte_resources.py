@@ -11,8 +11,8 @@ from pathlib import Path
 
 import pytest
 
-from src.kte import ExtractionOptions, extract_keywords
-from src.kte.utils.file_utils import FileUtils
+from kte import ExtractionOptions, extract_keywords
+from kte.utils.file_utils import FileUtils
 
 RESOURCES_DIR = Path(__file__).parent.parent.parent / "resources"
 

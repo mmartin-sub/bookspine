@@ -10,13 +10,13 @@ from .generic import DictionaryObject, PdfObject
 class CryptFilter:
     def __init__(self, stm_crypt: CryptBase, str_crypt: CryptBase, ef_crypt: CryptBase) -> None:
         ...
-    
+
     def encrypt_object(self, obj: PdfObject) -> PdfObject:
         ...
-    
+
     def decrypt_object(self, obj: PdfObject) -> PdfObject:
         ...
-    
+
 
 
 _PADDING = ...
@@ -85,7 +85,7 @@ class AlgV4:
 
         """
         ...
-    
+
     @staticmethod
     def compute_O_value_key(owner_password: bytes, rev: int, key_size: int) -> bytes:
         """
@@ -129,7 +129,7 @@ class AlgV4:
 
         """
         ...
-    
+
     @staticmethod
     def compute_O_value(rc4_key: bytes, user_password: bytes, rev: int) -> bytes:
         """
@@ -145,7 +145,7 @@ class AlgV4:
 
         """
         ...
-    
+
     @staticmethod
     def compute_U_value(key: bytes, rev: int, id1_entry: bytes) -> bytes:
         """
@@ -171,7 +171,7 @@ class AlgV4:
 
         """
         ...
-    
+
     @staticmethod
     def verify_user_password(user_password: bytes, rev: int, key_size: int, o_entry: bytes, u_entry: bytes, P: int, id1_entry: bytes, metadata_encrypted: bool) -> bytes:
         """
@@ -212,7 +212,7 @@ class AlgV4:
 
         """
         ...
-    
+
     @staticmethod
     def verify_owner_password(owner_password: bytes, rev: int, key_size: int, o_entry: bytes, u_entry: bytes, P: int, id1_entry: bytes, metadata_encrypted: bool) -> bytes:
         """
@@ -257,7 +257,7 @@ class AlgV4:
 
         """
         ...
-    
+
 
 
 class AlgV5:
@@ -322,7 +322,7 @@ class AlgV5:
 
         """
         ...
-    
+
     @staticmethod
     def verify_user_password(R: int, password: bytes, u_value: bytes, ue_value: bytes) -> bytes:
         """
@@ -342,11 +342,11 @@ class AlgV5:
 
         """
         ...
-    
+
     @staticmethod
     def calculate_hash(R: int, password: bytes, salt: bytes, udata: bytes) -> bytes:
         ...
-    
+
     @staticmethod
     def verify_perms(key: bytes, perms: bytes, p: int, metadata_encrypted: bool) -> bool:
         """
@@ -368,11 +368,11 @@ class AlgV5:
 
         """
         ...
-    
+
     @staticmethod
     def generate_values(R: int, user_password: bytes, owner_password: bytes, key: bytes, p: int, metadata_encrypted: bool) -> Dict[Any, Any]:
         ...
-    
+
     @staticmethod
     def compute_U_value(R: int, password: bytes, key: bytes) -> Tuple[bytes, bytes]:
         """
@@ -401,7 +401,7 @@ class AlgV5:
 
         """
         ...
-    
+
     @staticmethod
     def compute_O_value(R: int, password: bytes, key: bytes, u_value: bytes) -> Tuple[bytes, bytes]:
         """
@@ -436,7 +436,7 @@ class AlgV5:
 
         """
         ...
-    
+
     @staticmethod
     def compute_Perms_value(key: bytes, p: int, metadata_encrypted: bool) -> bytes:
         """
@@ -471,7 +471,7 @@ class AlgV5:
 
         """
         ...
-    
+
 
 
 class PasswordType(IntEnum):
@@ -523,38 +523,35 @@ class Encryption:
     """
     def __init__(self, V: int, R: int, Length: int, P: int, entry: DictionaryObject, EncryptMetadata: bool, first_id_entry: bytes, StmF: str, StrF: str, EFF: str, values: Optional[EncryptionValues]) -> None:
         ...
-    
+
     def is_decrypted(self) -> bool:
         ...
-    
+
     def encrypt_object(self, obj: PdfObject, idnum: int, generation: int) -> PdfObject:
         ...
-    
+
     def decrypt_object(self, obj: PdfObject, idnum: int, generation: int) -> PdfObject:
         ...
-    
+
     def verify(self, password: Union[bytes, str]) -> PasswordType:
         ...
-    
+
     def verify_v4(self, password: bytes) -> Tuple[bytes, PasswordType]:
         ...
-    
+
     def verify_v5(self, password: bytes) -> Tuple[bytes, PasswordType]:
         ...
-    
+
     def write_entry(self, user_password: str, owner_password: Optional[str]) -> DictionaryObject:
         ...
-    
+
     def compute_values_v4(self, user_password: bytes, owner_password: bytes) -> None:
         ...
-    
+
     @staticmethod
     def read(encryption_entry: DictionaryObject, first_id_entry: bytes) -> Encryption:
         ...
-    
+
     @staticmethod
     def make(alg: EncryptAlgorithm, permissions: int, first_id_entry: bytes) -> Encryption:
         ...
-    
-
-

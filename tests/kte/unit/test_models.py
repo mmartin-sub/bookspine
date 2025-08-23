@@ -10,9 +10,9 @@ from pathlib import Path
 
 import pytest
 
-from src.kte.models.extraction_options import ExtractionOptions
-from src.kte.models.extraction_result import ExtractionResult
-from src.kte.models.keyword_result import KeywordResult
+from kte.models.extraction_options import ExtractionOptions
+from kte.models.extraction_result import ExtractionResult
+from kte.models.keyword_result import KeywordResult
 
 
 class TestKeywordResult:

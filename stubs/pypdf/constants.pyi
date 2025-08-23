@@ -9,7 +9,7 @@ from typing import Dict, Tuple
 class StrEnum(str, Enum):
     def __str__(self) -> str:
         ...
-    
+
 
 
 class Core:
@@ -89,16 +89,16 @@ class UserAccessPermissions(IntFlag):
     def to_dict(self) -> Dict[str, bool]:
         """Convert the given flag value to a corresponding verbose name mapping."""
         ...
-    
+
     @classmethod
     def from_dict(cls, value: Dict[str, bool]) -> UserAccessPermissions:
         """Convert the verbose name mapping to the corresponding flag value."""
         ...
-    
+
     @classmethod
     def all(cls) -> UserAccessPermissions:
         ...
-    
+
 
 
 class Resources:
@@ -374,8 +374,8 @@ class FieldDictionaryAttributes:
         RadiosInUnison = ...
         RichText = ...
         CommitOnSelChange = ...
-    
-    
+
+
     @classmethod
     def attributes(cls) -> Tuple[str, ...]:
         """
@@ -391,7 +391,7 @@ class FieldDictionaryAttributes:
 
         """
         ...
-    
+
     @classmethod
     def attributes_dict(cls) -> Dict[str, str]:
         """
@@ -408,7 +408,7 @@ class FieldDictionaryAttributes:
 
         """
         ...
-    
+
 
 
 class CheckboxRadioButtonAttributes:
@@ -429,7 +429,7 @@ class CheckboxRadioButtonAttributes:
 
         """
         ...
-    
+
     @classmethod
     def attributes_dict(cls) -> Dict[str, str]:
         """
@@ -446,7 +446,7 @@ class CheckboxRadioButtonAttributes:
 
         """
         ...
-    
+
 
 
 class FieldFlag(IntFlag):

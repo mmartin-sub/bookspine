@@ -29,4 +29,3 @@ def mmr(doc_embedding: np.ndarray, word_embeddings: np.ndarray, words: List[str]
 
     """
     ...
-

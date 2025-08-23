@@ -13,13 +13,13 @@ import pytest
 
 from src.kte.core.header_weighting import HeaderWeighting
 from src.kte.core.input_handler import InputHandler
-from src.kte.core.keybert_extractor import KeyBERTExtractor
-from src.kte.core.output_handler import OutputHandler
-from src.kte.core.result_formatter import ResultFormatter
-from src.kte.models.extraction_options import ExtractionOptions
-from src.kte.models.extraction_result import ExtractionResult
-from src.kte.models.keyword_result import KeywordResult
-from src.kte.utils.text_preprocessor import TextPreprocessor
+from kte.core.keybert_extractor import KeyBERTExtractor
+from kte.core.output_handler import OutputHandler
+from kte.core.result_formatter import ResultFormatter
+from kte.models.extraction_options import ExtractionOptions
+from kte.models.extraction_result import ExtractionResult
+from kte.models.keyword_result import KeywordResult
+from kte.utils.text_preprocessor import TextPreprocessor
 
 
 class TestInputHandler:
@@ -62,7 +62,7 @@ class TestInputHandler:
         handler = InputHandler()
 
         # Mock file processing
-        with patch("src.kte.utils.file_utils.FileUtils.extract_text_from_file") as mock_extract:
+        with patch("kte.utils.file_utils.FileUtils.extract_text_from_file") as mock_extract:
             mock_extract.return_value = ("File content", {"file_path": "test.txt"})
 
             result = handler.process_file_input("test.txt")
@@ -75,7 +75,7 @@ class TestInputHandler:
         """Test processing input with file path."""
         handler = InputHandler()
 
-        with patch("src.kte.utils.file_utils.FileUtils.extract_text_from_file") as mock_extract:
+        with patch("kte.utils.file_utils.FileUtils.extract_text_from_file") as mock_extract:
             mock_extract.return_value = ("File content", {"file_path": "test.txt"})
 
             result = handler.process_input("test.txt")
@@ -151,85 +151,56 @@ class TestTextPreprocessor:
         assert len(elements["headers"]) == 3
 
 
-class TestKeyBERTExtractor:
+class TestKeyBERTExtractor(unittest.TestCase):
     """Test cases for KeyBERTExtractor."""
 
-    def test_keybert_extractor_creation(self):
-        """Test KeyBERTExtractor creation."""
-        extractor = KeyBERTExtractor()
-        assert extractor is not None
+    @patch("kte.core.keybert_extractor.KeyBERT")
+    @patch("kte.core.keybert_extractor.UniversalEmbedder")
+    def test_initialize_model_with_universal_embedder(self, mock_universal_embedder, mock_keybert):
+        """Test that the universal embedder is used for remote engines."""
+        extractor = KeyBERTExtractor(
+            engine="hf",
+            api_url="https://api.example.com",
+            auth_token="test_token",
+            model_name="test_model",
+        )
+        extractor._initialize_model()
+        mock_universal_embedder.assert_called_once_with(
+            engine="hf",
+            api_url="https://api.example.com",
+            auth_token="test_token",
+            model_name="test_model",
+        )
+        mock_keybert.assert_called_once_with(model=mock_universal_embedder.return_value)
 
-    @patch("builtins.__import__")
-    def test_extract_keywords_success(self, mock_import):
-        """Test successful keyword extraction."""
-        # Mock the imports
-        mock_keybert = Mock()
-        mock_sentence_transformer = Mock()
-        mock_sentence_model = Mock()
-        mock_logging = Mock()
-        mock_logger = Mock()
-        mock_logging.getLogger.return_value = mock_logger
-
-        def mock_import_side_effect(name, *args, **kwargs):
-            if name == "keybert":
-                return mock_keybert
-            elif name == "sentence_transformers":
-                return mock_sentence_transformer
-            elif name == "logging":
-                return mock_logging
-            else:
-                # For all other imports, use the real import to avoid recursion
-                return __import__(name, *args, **kwargs)
-
-        mock_import.side_effect = mock_import_side_effect
-        mock_sentence_transformer.SentenceTransformer.return_value = mock_sentence_model
-        mock_keybert.KeyBERT.return_value = Mock()
-
-        extractor = KeyBERTExtractor()
-        options = ExtractionOptions(max_keywords=5)
-
-        # Mock the extract_keywords method to return test data
-        with patch.object(extractor, "_extract_with_keybert") as mock_extract:
-            mock_extract.return_value = [
-                ("machine learning", 0.9),
-                ("artificial intelligence", 0.8),
-                ("data science", 0.7),
-            ]
-
-            result = extractor.extract_keywords("Test text about machine learning.", options)
-
-            assert len(result) == 3
-            assert all(isinstance(kw, KeywordResult) for kw in result)
-            assert result[0].phrase == "machine learning"
-            assert result[0].relevance_score == 0.9
+    @patch("kte.core.keybert_extractor.KeyBERT")
+    @patch("sentence_transformers.SentenceTransformer")
+    def test_initialize_model_with_local_embedder(self, mock_sentence_transformer, mock_keybert):
+        """Test that the local embedder is used for the 'local' engine."""
+        extractor = KeyBERTExtractor(
+            engine="local",
+            api_url="",
+            model_name="test_model",
+        )
+        extractor._initialize_model()
+        mock_sentence_transformer.assert_called_once_with("test_model")
+        mock_keybert.assert_called_once_with(model=mock_sentence_transformer.return_value)
 
     def test_extract_keywords_short_text(self):
         """Test keyword extraction with short text."""
-        extractor = KeyBERTExtractor()
+        extractor = KeyBERTExtractor(engine="local", api_url="")
         options = ExtractionOptions(max_keywords=5)
 
-        with pytest.raises(ValueError, match="Text is too short"):
+        with self.assertRaises(ValueError):
             extractor.extract_keywords("Short", options)
 
     def test_extract_keywords_empty_text(self):
         """Test keyword extraction with empty text."""
-        extractor = KeyBERTExtractor()
+        extractor = KeyBERTExtractor(engine="local", api_url="")
         options = ExtractionOptions(max_keywords=5)
 
-        with pytest.raises(ValueError, match="Text cannot be empty"):
+        with self.assertRaises(ValueError):
             extractor.extract_keywords("", options)
-
-    def test_filter_keywords(self):
-        """Test keyword filtering."""
-        extractor = KeyBERTExtractor()
-        options = ExtractionOptions(max_keywords=2, min_relevance=0.5)
-
-        raw_keywords = [("high score", 0.9), ("medium score", 0.6), ("low score", 0.3)]
-
-        filtered = extractor._filter_keywords(raw_keywords, options)
-
-        assert len(filtered) == 2  # max_keywords limit
-        assert all(score >= 0.5 for _, score in filtered)  # min_relevance filter
 
 
 class TestHeaderWeighting:

@@ -32,6 +32,7 @@ dependencies = [
     "pypdf>=3.0.0",
     "PyYAML>=6.0.0",
     "keybert>=0.9.0",
+    "numpy>=1.20.0",
 #    "sentence-transformers>=5.1.0", # pulled by keybert
     "nltk>=3.9.0",
     "markdown>=3.8.0",
@@ -43,7 +44,7 @@ dependencies = [
 test = [
     "pytest",
     "pytest-cov",
-    "pytest-asyncio"
+    "pytest-asyncio",
 ]
 # All tools needed for local development and quality checks
 dev = [
@@ -64,6 +65,11 @@ dev = [
     "types-PyYAML",
     "types-Markdown",
     "types-toml",
+    "numpy>=1.20.0",
+]
+# Dependencies for using local sentence-transformer models
+local-models = [
+    "sentence-transformers>=5.1.0",
 ]
 
 [project.scripts]
@@ -83,11 +89,12 @@ path = ".venv"
 installer = "uv"
 python = "3.12"
 with-pip = true
+env-vars = { PYTHONPATH = "src" }
 
 [tool.hatch.envs.default.scripts]
 check-updates = "uv tree -U"
 update-pip = "uv pip install --upgrade $(uv pip freeze | cut -d'=' -f1)"
-test-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=bookspine {args:.}"
+test-cov = "PYTHONPATH=src pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=bookspine {args:.}"
 lint = "ruff check {args:.}"
 lint-fix = "ruff check --fix {args:.}"
 style = "black --check --diff {args:.}"
@@ -187,3 +194,21 @@ exclude_lines = [
 
 [tool.coverage.html]
 directory = "tests/htmlcov"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+testpaths = "tests"
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::UserWarning",
+]
+env = [
+    "HF_HUB_DISABLE_TELEMETRY=1",
+    "HF_HUB_DISABLE_IMPLICIT_TOKEN=1",
+    "HF_HOME=~/.cache/huggingface",
+]

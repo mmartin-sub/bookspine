@@ -6,6 +6,7 @@ from book content using KeyBERT and various preprocessing techniques.
 """
 
 import logging
+import os
 import time
 from typing import Any, Dict, Optional, Union
 
@@ -40,8 +41,17 @@ def extract_keywords(
         Exception: If extraction process fails.
     """
     # Initialize components
+    engine = os.environ.get("KTE_ENGINE", "local")
+    api_url = os.environ.get("KTE_API_URL", "")
+    auth_token = os.environ.get("KTE_AUTH_TOKEN")
+    model_name = os.environ.get("KTE_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
     input_handler = InputHandler()
-    keybert_extractor = KeyBERTExtractor()
+    keybert_extractor = KeyBERTExtractor(
+        engine=engine,
+        api_url=api_url,
+        auth_token=auth_token,
+        model_name=model_name,
+    )
     header_weighting = HeaderWeighting()
     result_formatter = ResultFormatter()
     output_handler = OutputHandler()
@@ -112,8 +122,17 @@ class KeywordExtractor:
         """
         Initialize the keyword extractor with default components.
         """
+        engine = os.environ.get("KTE_ENGINE", "local")
+        api_url = os.environ.get("KTE_API_URL", "")
+        auth_token = os.environ.get("KTE_AUTH_TOKEN")
+        model_name = os.environ.get("KTE_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
         self.input_handler = InputHandler()
-        self.keybert_extractor = KeyBERTExtractor()
+        self.keybert_extractor = KeyBERTExtractor(
+            engine=engine,
+            api_url=api_url,
+            auth_token=auth_token,
+            model_name=model_name,
+        )
         self.header_weighting = HeaderWeighting()
         self.result_formatter = ResultFormatter()
         self.output_handler = OutputHandler()

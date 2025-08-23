@@ -4,7 +4,7 @@ Unit tests for the UnitConverter class.
 
 import unittest
 
-from src.bookspine.core.unit_converter import UnitConverter
+from bookspine.core.unit_converter import UnitConverter
 
 
 class TestUnitConverter(unittest.TestCase):

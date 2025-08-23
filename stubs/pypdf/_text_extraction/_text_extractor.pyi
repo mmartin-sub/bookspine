@@ -15,16 +15,13 @@ class TextExtraction:
     """
     def __init__(self) -> None:
         ...
-    
+
     def initialize_extraction(self, orientations: Tuple[int, ...] = ..., visitor_text: Optional[Callable[[Any, Any, Any, Any, Any], None]] = ..., cmaps: Optional[Dict[str, Tuple[str, float, Union[str, Dict[int, str]], Dict[str, str], DictionaryObject]]] = ...) -> None:
         """Initialize the extractor with extraction parameters."""
         ...
-    
+
     def compute_str_widths(self, str_widths: float) -> float:
         ...
-    
+
     def process_operation(self, operator: bytes, operands: List[Any]) -> None:
         ...
-    
-
-

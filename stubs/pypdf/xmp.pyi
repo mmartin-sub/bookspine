@@ -32,16 +32,16 @@ class XmpInformation(XmpInformationProtocol, PdfObject):
     """
     def __init__(self, stream: ContentStream) -> None:
         ...
-    
+
     def write_to_stream(self, stream: StreamType, encryption_key: Union[None, str, bytes] = ...) -> None:
         ...
-    
+
     def get_element(self, about_uri: str, namespace: str, name: str) -> Iterator[Any]:
         ...
-    
+
     def get_nodes_in_namespace(self, about_uri: str, namespace: str) -> Iterator[Any]:
         ...
-    
+
     dc_contributor = ...
     dc_coverage = ...
     dc_creator = ...
@@ -79,6 +79,3 @@ class XmpInformation(XmpInformationProtocol, PdfObject):
 
         """
         ...
-    
-
-

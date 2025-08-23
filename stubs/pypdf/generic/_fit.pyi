@@ -7,7 +7,7 @@ from typing import Any, Optional, Tuple, Union
 class Fit:
     def __init__(self, fit_type: str, fit_args: Tuple[Union[None, float, Any], ...] = ...) -> None:
         ...
-    
+
     @classmethod
     def xyz(cls, left: Optional[float] = ..., top: Optional[float] = ..., zoom: Optional[float] = ...) -> Fit:
         """
@@ -30,7 +30,7 @@ class Fit:
 
         """
         ...
-    
+
     @classmethod
     def fit(cls) -> Fit:
         """
@@ -43,7 +43,7 @@ class Fit:
         window in the other dimension.
         """
         ...
-    
+
     @classmethod
     def fit_horizontally(cls, top: Optional[float] = ...) -> Fit:
         """
@@ -63,11 +63,11 @@ class Fit:
 
         """
         ...
-    
+
     @classmethod
     def fit_vertically(cls, left: Optional[float] = ...) -> Fit:
         ...
-    
+
     @classmethod
     def fit_rectangle(cls, left: Optional[float] = ..., bottom: Optional[float] = ..., right: Optional[float] = ..., top: Optional[float] = ...) -> Fit:
         """
@@ -94,7 +94,7 @@ class Fit:
 
         """
         ...
-    
+
     @classmethod
     def fit_box(cls) -> Fit:
         """
@@ -107,7 +107,7 @@ class Fit:
         within the window in the other dimension.
         """
         ...
-    
+
     @classmethod
     def fit_box_horizontally(cls, top: Optional[float] = ...) -> Fit:
         """
@@ -127,7 +127,7 @@ class Fit:
 
         """
         ...
-    
+
     @classmethod
     def fit_box_vertically(cls, left: Optional[float] = ...) -> Fit:
         """
@@ -147,10 +147,10 @@ class Fit:
 
         """
         ...
-    
+
     def __str__(self) -> str:
         ...
-    
+
 
 
 DEFAULT_FIT = ...

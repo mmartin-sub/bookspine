@@ -88,7 +88,7 @@ class OpenAI(BaseLLM):
     """
     def __init__(self, client, model: str = ..., prompt: str = ..., system_prompt: str = ..., generator_kwargs: Mapping[str, Any] = ..., delay_in_seconds: float = ..., exponential_backoff: bool = ..., chat: bool = ..., verbose: bool = ...) -> None:
         ...
-    
+
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = ...): # -> list[Any]:
         """Extract topics.
 
@@ -103,7 +103,7 @@ class OpenAI(BaseLLM):
             all_keywords: All keywords for each document
         """
         ...
-    
+
 
 
 def completions_with_backoff(client, **kwargs):
@@ -111,4 +111,3 @@ def completions_with_backoff(client, **kwargs):
 
 def chat_completions_with_backoff(client, **kwargs):
     ...
-

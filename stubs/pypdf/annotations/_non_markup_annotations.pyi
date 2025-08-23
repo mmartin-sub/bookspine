@@ -11,12 +11,9 @@ from ._base import AnnotationDictionary
 class Link(AnnotationDictionary):
     def __init__(self, *, rect: Union[RectangleObject, Tuple[float, float, float, float]], border: Optional[ArrayObject] = ..., url: Optional[str] = ..., target_page_index: Optional[int] = ..., fit: Fit = ..., **kwargs: Any) -> None:
         ...
-    
+
 
 
 class Popup(AnnotationDictionary):
     def __init__(self, *, rect: Union[RectangleObject, Tuple[float, float, float, float]], parent: Optional[DictionaryObject] = ..., open: bool = ..., **kwargs: Any) -> None:
         ...
-    
-
-

@@ -23,6 +23,8 @@ import requests
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
+from .config import REQUESTS_TIMEOUT
+
 # --- Configuration ---
 STUBS_DIR = Path("stubs")
 PYPROJECT_PATH = Path("pyproject.toml")
@@ -32,7 +34,7 @@ def get_hatch_python_executable() -> str:
     """Gets the absolute path to the Python executable in the active Hatch environment."""
     print("--- Locating Hatch environment's Python executable ---")
     try:
-        result = subprocess.run(
+        result = subprocess.run(  # nosec B607
             ["hatch", "run", "which", "python"],
             capture_output=True,
             text=True,
@@ -63,7 +65,7 @@ def get_project_name() -> str:
 def get_all_project_dependencies() -> list[str]:
     """Gets a complete list of all project dependencies from Hatch, including all optional groups."""
     print("--- Getting all project dependencies from Hatch ---")
-    result = subprocess.run(
+    result = subprocess.run(  # nosec B607
         ["hatch", "dep", "show", "requirements", "--all"], capture_output=True, text=True, check=True
     )
     return result.stdout.strip().splitlines()
@@ -171,7 +173,7 @@ def generate_stubs(dry_run: bool, only_packages: list[str] | None):
 
         print(f"Processing '{pypi_name}'...")
         stub_package_name = f"types-{pypi_name}"
-        response = requests.get(f"https://pypi.org/pypi/{stub_package_name}/json")
+        response = requests.get(f"https://pypi.org/pypi/{stub_package_name}/json", timeout=REQUESTS_TIMEOUT)
 
         if response.status_code == 200:
             if canonicalize_name(stub_package_name) in installed_packages:

@@ -49,7 +49,7 @@ class FlateDecode:
 
         """
         ...
-    
+
     @staticmethod
     def encode(data: bytes, level: int = ...) -> bytes:
         """
@@ -64,7 +64,7 @@ class FlateDecode:
 
         """
         ...
-    
+
 
 
 class ASCIIHexDecode:
@@ -91,7 +91,7 @@ class ASCIIHexDecode:
 
         """
         ...
-    
+
 
 
 class RunLengthDecode:
@@ -124,7 +124,7 @@ class RunLengthDecode:
 
         """
         ...
-    
+
 
 
 class LZWDecode:
@@ -133,12 +133,12 @@ class LZWDecode:
         CLEARDICT = ...
         def __init__(self, data: bytes) -> None:
             ...
-        
+
         def decode(self) -> bytes:
             ...
-        
-    
-    
+
+
+
     @staticmethod
     def decode(data: bytes, decode_parms: Optional[DictionaryObject] = ..., **kwargs: Any) -> str:
         """
@@ -153,7 +153,7 @@ class LZWDecode:
 
         """
         ...
-    
+
 
 
 class ASCII85Decode:
@@ -172,7 +172,7 @@ class ASCII85Decode:
 
         """
         ...
-    
+
 
 
 class DCTDecode:
@@ -192,7 +192,7 @@ class DCTDecode:
 
         """
         ...
-    
+
 
 
 class JPXDecode:
@@ -211,7 +211,7 @@ class JPXDecode:
 
         """
         ...
-    
+
 
 
 @dataclass
@@ -227,7 +227,7 @@ class CCITTParameters:
     @property
     def group(self) -> int:
         ...
-    
+
 
 
 CCITParameters = ...
@@ -243,7 +243,7 @@ class CCITTFaxDecode:
     @staticmethod
     def decode(data: bytes, decode_parms: Optional[DictionaryObject] = ..., height: int = ..., **kwargs: Any) -> bytes:
         ...
-    
+
 
 
 JBIG2DEC_BINARY = ...
@@ -251,7 +251,7 @@ class JBIG2Decode:
     @staticmethod
     def decode(data: bytes, decode_parms: Optional[DictionaryObject] = ..., **kwargs: Any) -> bytes:
         ...
-    
+
 
 
 def decode_stream_data(stream: Any) -> bytes:
@@ -272,4 +272,3 @@ def decode_stream_data(stream: Any) -> bytes:
 
     """
     ...
-

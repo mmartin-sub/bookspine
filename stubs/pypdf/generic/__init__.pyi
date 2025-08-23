@@ -31,43 +31,43 @@ class AnnotationBuilder:
     @staticmethod
     def text(rect: Union[RectangleObject, Tuple[float, float, float, float]], text: str, open: bool = ..., flags: int = ...) -> None:
         ...
-    
+
     @staticmethod
     def free_text(text: str, rect: Union[RectangleObject, Tuple[float, float, float, float]], font: str = ..., bold: bool = ..., italic: bool = ..., font_size: str = ..., font_color: str = ..., border_color: Optional[str] = ..., background_color: Optional[str] = ...) -> None:
         ...
-    
+
     @staticmethod
     def popup(*, rect: Union[RectangleObject, Tuple[float, float, float, float]], flags: int = ..., parent: Optional[DictionaryObject] = ..., open: bool = ...) -> None:
         ...
-    
+
     @staticmethod
     def line(p1: Tuple[float, float], p2: Tuple[float, float], rect: Union[RectangleObject, Tuple[float, float, float, float]], text: str = ..., title_bar: Optional[str] = ...) -> None:
         ...
-    
+
     @staticmethod
     def polyline(vertices: List[Tuple[float, float]]) -> None:
         ...
-    
+
     @staticmethod
     def rectangle(rect: Union[RectangleObject, Tuple[float, float, float, float]], interiour_color: Optional[str] = ...) -> None:
         ...
-    
+
     @staticmethod
     def highlight(*, rect: Union[RectangleObject, Tuple[float, float, float, float]], quad_points: ArrayObject, highlight_color: str = ..., printing: bool = ...) -> None:
         ...
-    
+
     @staticmethod
     def ellipse(rect: Union[RectangleObject, Tuple[float, float, float, float]], interiour_color: Optional[str] = ...) -> None:
         ...
-    
+
     @staticmethod
     def polygon(vertices: List[Tuple[float, float]]) -> None:
         ...
-    
+
     @staticmethod
     def link(rect: Union[RectangleObject, Tuple[float, float, float, float]], border: Optional[ArrayObject] = ..., url: Optional[str] = ..., target_page_index: Optional[int] = ..., fit: Fit = ...) -> None:
         ...
-    
+
 
 
 __all__ = ["PAGE_FIT", "AnnotationBuilder", "ArrayObject", "BooleanObject", "ByteStringObject", "ContentStream", "DecodedStreamObject", "Destination", "DictionaryObject", "DirectReferenceLink", "EmbeddedFile", "EncodedStreamObject", "Field", "Fit", "FloatObject", "IndirectObject", "NameObject", "NamedReferenceLink", "NullObject", "NumberObject", "OutlineFontFlag", "OutlineItem", "PdfObject", "RectangleObject", "ReferenceLink", "StreamObject", "TextStringObject", "TreeObject", "ViewerPreferences", "create_string_object", "decode_pdfdocencoding", "encode_pdfdocencoding", "extract_links", "hex_to_rgb", "is_null_or_none", "read_hex_string_from_stream", "read_object", "read_string_from_stream"]

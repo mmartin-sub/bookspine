@@ -7,7 +7,6 @@ Prevents committing code that uses deprecated Pydantic v1 patterns.
 import re
 import sys
 from pathlib import Path
-from typing import List, Tuple
 
 # Patterns that indicate Pydantic v1 usage
 V1_PATTERNS = [
@@ -42,7 +41,7 @@ V1_PATTERNS = [
 ]
 
 
-def check_file(file_path: Path) -> List[Tuple[int, str, str]]:
+def check_file(file_path: Path) -> list[tuple[int, str, str]]:
     """Check a single file for Pydantic v1 patterns."""
     violations = []
 

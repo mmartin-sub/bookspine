@@ -65,7 +65,7 @@ class TextGeneration(BaseLLM):
     """
     def __init__(self, model: Union[str, pipeline], prompt: str = ..., pipeline_kwargs: Mapping[str, Any] = ..., random_state: int = ..., verbose: bool = ...) -> None:
         ...
-    
+
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = ...): # -> list[Any]:
         """Extract topics.
 
@@ -80,6 +80,3 @@ class TextGeneration(BaseLLM):
             all_keywords: All keywords for each document
         """
         ...
-    
-
-

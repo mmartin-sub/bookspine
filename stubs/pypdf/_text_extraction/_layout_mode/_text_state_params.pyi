@@ -50,19 +50,19 @@ class TextStateParams:
     rotated: bool = ...
     def __post_init__(self) -> None:
         ...
-    
+
     def font_size_matrix(self) -> List[float]:
         """Font size matrix"""
         ...
-    
+
     def displaced_transform(self) -> List[float]:
         """Effective transform matrix after text has been rendered."""
         ...
-    
+
     def render_transform(self) -> List[float]:
         """Effective transform matrix accounting for font size, Tz, and Ts."""
         ...
-    
+
     def displacement_matrix(self, word: Union[str, None] = ..., TD_offset: float = ...) -> List[float]:
         """
         Text displacement matrix
@@ -74,15 +74,12 @@ class TextStateParams:
 
         """
         ...
-    
+
     def word_tx(self, word: str, TD_offset: float = ...) -> float:
         """Horizontal text displacement for any word according this text state"""
         ...
-    
+
     @staticmethod
     def to_dict(inst: TextStateParams) -> Dict[str, Any]:
         """Dataclass to dict for json.dumps serialization"""
         ...
-    
-
-

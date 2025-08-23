@@ -1,112 +1,32 @@
-# BookSpine & KTE - Professional Book Analysis Tools
+# BookSpine & KTE
 
-A comprehensive Python toolkit for calculating book spine dimensions and extracting keywords from book content. This project provides two separate, professional-grade libraries:
+A comprehensive Python toolkit for calculating book spine dimensions and extracting keywords from book content.
 
-- **BookSpine**: Calculate precise book spine dimensions for various printing services
-- **KTE (Keyword Theme Extraction)**: Extract and analyze keywords from book content using AI
+This project provides two main tools:
 
-## 🚀 Quick Start
+-   **BookSpine**: A library and command-line tool for calculating book spine dimensions for various printing services.
+-   **KTE (Keyword Theme Extraction)**: A library and command-line tool for extracting keywords and themes from book content using AI.
 
-### Installation
+## Features
 
-```bash
-# Install both packages
-pip install bookspine kte
+-   **Flexible Keyword Extraction**: The KTE module supports multiple keyword extraction backends:
+    -   **Local**: Uses a local `sentence-transformers` model for keyword extraction.
+    -   **Hugging Face API**: Offloads the extraction to the Hugging Face Inference API.
+    -   **STAPI (Docker)**: Connects to a local Docker container running a sentence-transformer API.
+-   **Configurable**: The extraction method can be easily configured using environment variables.
 
-# Or install individually
-pip install bookspine  # For spine calculations only
-pip install kte        # For keyword extraction only
-```
+## Documentation
 
-### BookSpine Usage
+For detailed information on installation, usage, and development, please see our documentation in the `docs` directory.
 
-```bash
-# Basic spine calculation
-bookspine --page-count 200 --paper-type MCG --binding-type "Softcover Perfect Bound" --paper-weight 80
+-   **[Installation Instructions](docs/INSTALL.md)**
+-   **[Developer Documentation](docs/developer/)**
+-   **[TODO List](docs/TODO.md)**
 
-# From PDF file
-bookspine --pdf book.pdf --paper-type MCG --binding-type "Softcover Perfect Bound" --paper-weight 80
+## Contributing
 
-# Using printer service
-bookspine --page-count 200 --printer-service kdp --binding-type "Softcover Perfect Bound"
+We welcome contributions! Please see our [Contributing Guidelines](docs/developer/CONTRIBUTING.md) for more information.
 
-# List available services
-bookspine --list-services
-```
+## License
 
-### KTE Usage
-
-```bash
-# Extract keywords from text
-kte --text "Your book content here" --max-keywords 10
-
-# Extract from file
-kte --file book.md --max-keywords 15 --output-file keywords.json
-
-# Extract from PDF
-kte --file book.pdf --format json
-```
-
-## 📦 Project Structure
-
-```
-src/
-├── bookspine/          # Book spine calculation library
-│   ├── cli.py         # Command-line interface
-│   ├── core/          # Core calculation logic
-│   ├── config/        # Configuration management
-│   ├── models/        # Data models
-│   ├── utils/         # Utilities
-│   └── tests/         # Unit and integration tests
-└── kte/               # Keyword extraction library
-    ├── cli.py         # Command-line interface
-    ├── core/          # Core extraction logic
-    ├── models/        # Data models
-    ├── utils/         # Utilities
-    └── tests/         # Unit and integration tests
-```
-
-## 🛠️ Development
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/book-analyse.git
-cd book-analyse
-
-# Install development dependencies
-pip install -e ".[dev,test,docs]"
-
-# Run tests
-hatch run test
-```
-
-### Testing
-
-```bash
-# Run all tests
-hatch run test
-
-# Run specific package tests
-hatch run test src/bookspine/
-hatch run test src/kte/
-
-# Run with coverage
-hatch run test-cov
-```
-
-## 📚 Documentation
-
-- [BookSpine Documentation](src/bookspine/README.md)
-- [KTE Documentation](src/kte/README.md)
-- [API Reference](docs/api.md)
-- [Contributing Guidelines](CONTRIBUTING.md)
-
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
