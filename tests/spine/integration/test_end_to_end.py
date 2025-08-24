@@ -303,7 +303,7 @@ class TestConfigurationIntegrationWorkflows:
         expected_paper_types = ["MCG", "MCS", "ECB", "OFF"]
         for paper_type in expected_paper_types:
             assert paper_type in paper_bulk
-            assert isinstance(paper_bulk[paper_type], (int, float))
+            assert isinstance(paper_bulk[paper_type], int | float)
             assert paper_bulk[paper_type] > 0
 
         # Verify cover thickness structure
@@ -311,7 +311,7 @@ class TestConfigurationIntegrationWorkflows:
         expected_binding_types = ["Softcover Perfect Bound", "Hardcover Casewrap", "Hardcover Linen"]
         for binding_type in expected_binding_types:
             assert binding_type in cover_thickness
-            assert isinstance(cover_thickness[binding_type], (int, float))
+            assert isinstance(cover_thickness[binding_type], int | float)
             assert cover_thickness[binding_type] >= 0
 
 

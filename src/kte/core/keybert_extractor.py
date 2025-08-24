@@ -7,11 +7,13 @@ with support for various extraction strategies and configurations.
 
 import os
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, cast
+
+from keybert import KeyBERT
 
 from ..models.extraction_options import ExtractionOptions
 from ..models.keyword_result import KeywordResult
-from .universal_embedder import UniversalEmbedder
+from .universal_embedder import EngineType, UniversalEmbedder
 
 
 class KeyBERTExtractor:
@@ -86,21 +88,21 @@ class KeyBERTExtractor:
             ImportError: If KeyBERT is not available.
         """
         try:
-            from keybert import KeyBERT
-
             if self.engine == "local":
                 from sentence_transformers import SentenceTransformer
 
                 embedder = SentenceTransformer(self.model_name)
             else:
                 embedder = UniversalEmbedder(
-                    engine=self.engine,
+                    engine=cast(EngineType, self.engine),
                     api_url=self.api_url,
                     auth_token=self.auth_token,
                     model_name=self.model_name,
                 )
 
-            self._model = KeyBERT(model=embedder)
+            # The type hint for KeyBERT is incorrect in the stubs, so we cast to Any.
+            # The model can be a string or a model object.
+            self._model = KeyBERT(model=cast(Any, embedder))
             self._initialized = True
 
         except ImportError:

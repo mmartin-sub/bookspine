@@ -141,7 +141,7 @@ class ExtractionResult:
         """
         return json.dumps(self.to_dict(), indent=indent)
 
-    def get_top_keywords(self, count: int = None) -> List[KeywordResult]:
+    def get_top_keywords(self, count: Optional[int] = None) -> List[KeywordResult]:
         """
         Get top keywords by relevance score.
 

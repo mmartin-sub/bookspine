@@ -8,10 +8,11 @@ from book content using KeyBERT and various preprocessing techniques.
 import logging
 import os
 import time
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from ..models.extraction_options import ExtractionOptions
 from ..models.extraction_result import ExtractionResult
+from ..models.keyword_result import KeywordResult
 from .header_weighting import HeaderWeighting
 from .input_handler import InputHandler
 from .keybert_extractor import KeyBERTExtractor
@@ -19,8 +20,74 @@ from .output_handler import OutputHandler
 from .result_formatter import ResultFormatter
 
 
-def extract_keywords(
+def _initialize_components() -> Tuple[InputHandler, KeyBERTExtractor, HeaderWeighting, ResultFormatter, OutputHandler]:
+    """Initialize all components needed for the extraction pipeline."""
+    engine = os.environ.get("KTE_ENGINE", "local")
+    api_url = os.environ.get("KTE_API_URL", "")
+    auth_token = os.environ.get("KTE_AUTH_TOKEN")
+    model_name = os.environ.get("KTE_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
+
+    input_handler = InputHandler()
+    keybert_extractor = KeyBERTExtractor(
+        engine=engine,
+        api_url=api_url,
+        auth_token=auth_token,
+        model_name=model_name,
+    )
+    header_weighting = HeaderWeighting()
+    result_formatter = ResultFormatter()
+    output_handler = OutputHandler()
+
+    return input_handler, keybert_extractor, header_weighting, result_formatter, output_handler
+
+
+def _process_input(
+    input_handler: InputHandler,
     input_source: Union[str, Dict[str, Any]],
+    options: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Handle the input and return the processed text and metadata."""
+    if input_source is None:
+        raise ValueError("Input source cannot be None")
+    return input_handler.handle_input(input_source, options)
+
+
+def _extract_and_format_keywords(
+    keybert_extractor: KeyBERTExtractor,
+    header_weighting: HeaderWeighting,
+    result_formatter: ResultFormatter,
+    processed_input: Dict[str, Any],
+    extraction_options: ExtractionOptions,
+) -> List[KeywordResult]:
+    """Perform keyword extraction, weighting, and formatting."""
+    keywords = keybert_extractor.extract_keywords(processed_input["text"], extraction_options)
+    headers = processed_input["metadata"].get("headers", [])
+    weighted_keywords = header_weighting.apply_header_weighting(keywords, headers, extraction_options)
+    return result_formatter.format_results(weighted_keywords, extraction_options)
+
+
+def _create_extraction_result(
+    formatted_keywords: List[KeywordResult],
+    processed_input: Dict[str, Any],
+    extraction_options: ExtractionOptions,
+    start_time: float,
+) -> ExtractionResult:
+    """Create the final ExtractionResult object."""
+    processing_time = time.time() - start_time
+    metadata = {
+        **processed_input["metadata"],
+        "processing_time": processing_time,
+    }
+    return ExtractionResult(
+        keywords=formatted_keywords,
+        extraction_method="KeyBERT",
+        metadata=metadata,
+        options_used=extraction_options,
+    )
+
+
+def extract_keywords(
+    input_source: Optional[Union[str, Dict[str, Any]]],
     options: Optional[Dict[str, Any]] = None,
     output_file: Optional[str] = None,
 ) -> ExtractionResult:
@@ -40,73 +107,31 @@ def extract_keywords(
         FileNotFoundError: If specified input file doesn't exist.
         Exception: If extraction process fails.
     """
-    # Initialize components
-    engine = os.environ.get("KTE_ENGINE", "local")
-    api_url = os.environ.get("KTE_API_URL", "")
-    auth_token = os.environ.get("KTE_AUTH_TOKEN")
-    model_name = os.environ.get("KTE_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
-    input_handler = InputHandler()
-    keybert_extractor = KeyBERTExtractor(
-        engine=engine,
-        api_url=api_url,
-        auth_token=auth_token,
-        model_name=model_name,
-    )
-    header_weighting = HeaderWeighting()
-    result_formatter = ResultFormatter()
-    output_handler = OutputHandler()
-
-    # Parse options
-    extraction_options = ExtractionOptions()
-    if options:
-        extraction_options = ExtractionOptions.from_dict(options)
-
-    # Start timing
     start_time = time.time()
-
     try:
-        # Step 1: Handle input
-        processed_input = input_handler.handle_input(input_source, options or {})
+        input_handler, keybert_extractor, header_weighting, result_formatter, output_handler = _initialize_components()
+        extraction_options = ExtractionOptions.from_dict(options or {})
 
-        # Step 2: Extract keywords using KeyBERT
-        keywords = keybert_extractor.extract_keywords(processed_input["text"], extraction_options)
+        if input_source is None:
+            raise ValueError("Input source cannot be None")
 
-        # Step 3: Apply header weighting
-        headers = processed_input["metadata"].get("headers", [])
-        weighted_keywords = header_weighting.apply_header_weighting(keywords, headers, extraction_options)
-
-        # Step 4: Format and rank results
-        formatted_keywords = result_formatter.format_results(weighted_keywords, extraction_options)
-
-        # Step 5: Create extraction result
-        processing_time = time.time() - start_time
-        metadata = {
-            **processed_input["metadata"],
-            "processing_time": processing_time,
-        }
-
-        extraction_result = ExtractionResult(
-            keywords=formatted_keywords,
-            extraction_method="KeyBERT",
-            metadata=metadata,
-            options_used=extraction_options,
+        processed_input = _process_input(input_handler, input_source, options or {})
+        formatted_keywords = _extract_and_format_keywords(
+            keybert_extractor, header_weighting, result_formatter, processed_input, extraction_options
+        )
+        extraction_result = _create_extraction_result(
+            formatted_keywords, processed_input, extraction_options, start_time
         )
 
-        # Step 6: Handle output
         if output_file:
             output_handler.prepare_output(extraction_result, output_file)
 
         return extraction_result
 
     except Exception as e:
-        # Add processing time to error context
         processing_time = time.time() - start_time
-
-        # Preserve original exception types for known errors
         if isinstance(e, (ValueError, FileNotFoundError)):
             raise e
-
-        # Wrap other exceptions with timing information
         raise Exception(f"Keyword extraction failed after {processing_time:.2f}s: {str(e)}")
 
 
@@ -122,24 +147,17 @@ class KeywordExtractor:
         """
         Initialize the keyword extractor with default components.
         """
-        engine = os.environ.get("KTE_ENGINE", "local")
-        api_url = os.environ.get("KTE_API_URL", "")
-        auth_token = os.environ.get("KTE_AUTH_TOKEN")
-        model_name = os.environ.get("KTE_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
-        self.input_handler = InputHandler()
-        self.keybert_extractor = KeyBERTExtractor(
-            engine=engine,
-            api_url=api_url,
-            auth_token=auth_token,
-            model_name=model_name,
-        )
-        self.header_weighting = HeaderWeighting()
-        self.result_formatter = ResultFormatter()
-        self.output_handler = OutputHandler()
+        (
+            self.input_handler,
+            self.keybert_extractor,
+            self.header_weighting,
+            self.result_formatter,
+            self.output_handler,
+        ) = _initialize_components()
 
     def extract(
         self,
-        input_source: Union[str, Dict[str, Any]],
+        input_source: Optional[Union[str, Dict[str, Any]]],
         options: Optional[Dict[str, Any]] = None,
         output_file: Optional[str] = None,
     ) -> ExtractionResult:

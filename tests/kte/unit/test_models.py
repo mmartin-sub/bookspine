@@ -147,6 +147,7 @@ class TestExtractionResult:
 
         assert len(result.keywords) == 2
         assert result.extraction_method == "keybert"
+        assert result.metadata is not None
         assert result.metadata["source"] == "test.txt"
         assert isinstance(result.timestamp, str)  # timestamp is stored as string
 
@@ -164,7 +165,7 @@ class TestExtractionResult:
 
         # Invalid: None keywords should raise ValueError
         with pytest.raises(ValueError):
-            ExtractionResult(keywords=None, extraction_method="keybert")
+            ExtractionResult(keywords=None, extraction_method="keybert")  # type: ignore
 
         # Invalid: empty extraction method should raise ValueError
         with pytest.raises(ValueError):

@@ -50,7 +50,7 @@ class TestBookMetadata(unittest.TestCase):
 
         # Test with non-integer page count
         with self.assertRaises(ValidationError) as context:
-            BookMetadata(page_count="200")
+            BookMetadata(page_count="200")  # type: ignore
         self.assertIn("Page count must be an integer", str(context.exception))
 
     def test_invalid_paper_type(self):
@@ -86,7 +86,7 @@ class TestBookMetadata(unittest.TestCase):
 
         # Test with non-numeric paper weight
         with self.assertRaises(ValidationError) as context:
-            BookMetadata(page_count=200, paper_weight="80")
+            BookMetadata(page_count=200, paper_weight="80")  # type: ignore
         self.assertIn("Paper weight must be a number", str(context.exception))
 
         # Test with paper weight outside typical range (should print warning but not raise error)
