@@ -1,4 +1,4 @@
-from typing import List, Literal, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 import numpy as np
 import requests
@@ -22,8 +22,8 @@ class UniversalEmbedder(BaseEmbedder):
         self.model_name = model_name
 
     def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
-        headers = {}
-        payload = {}
+        headers: Dict[str, str] = {}
+        payload: Dict[str, Any] = {}
 
         # 1. Configure request based on the engine
         if self.engine == "huggingface":
@@ -43,7 +43,7 @@ class UniversalEmbedder(BaseEmbedder):
             raise ValueError(f"Unknown engine type: {self.engine}")
 
         # 2. Make the request
-        response = requests.post(self.api_url, headers=headers, json=payload)
+        response = requests.post(self.api_url, headers=headers, json=payload, timeout=30)
         response.raise_for_status()
         response_data = response.json()
 

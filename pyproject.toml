@@ -59,6 +59,8 @@ test = [
     "pytest-cov",
     "pytest-asyncio",
     "pytest-dotenv",
+    "fpdf2",
+    "typer",
 ]
 # Extras for users to install (if publishing)
 cpu = ["torch", "torchvision", "torchaudio"]
@@ -77,20 +79,20 @@ dev = [
 
     "toml", # needed to generate the stubs
     "packaging", # Add this line
+    "pre-commit",
     "requests", # part of the std deps but still needed for dev
 
     "ipdb",
 
     # Type Stubs
-    "types-PyYAML",
-    "types-requests",
     "types-beautifulsoup4",
     "types-fpdf2",
     "types-jinja2",
-    "types-toml",
     "types-jsonschema",
     "types-Markdown",
+    "types-PyYAML",
     "types-requests",
+    "types-toml",
 
     "numpy>=1.20.0",
 ]

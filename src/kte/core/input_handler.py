@@ -7,7 +7,7 @@ raw text, and structured data for keyword extraction.
 
 import logging
 import os
-from typing import Any, Dict, Union
+from typing import Any, Dict, Optional, Union
 
 from ..utils.file_utils import FileUtils
 from ..utils.text_preprocessor import TextPreprocessor
@@ -21,7 +21,9 @@ class InputHandler:
     including file reading, text validation, and format detection.
     """
 
-    def handle_input(self, input_source: Union[str, Dict[str, Any]], options: Dict[str, Any] = None) -> Dict[str, Any]:
+    def handle_input(
+        self, input_source: Union[str, Dict[str, Any]], options: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
         """
         Process and validate input from file or text content.
 
@@ -48,7 +50,7 @@ class InputHandler:
         else:
             raise ValueError(f"Unsupported input type: {type(input_source)}")
 
-    def validate_input_text(self, text: str) -> bool:
+    def validate_input_text(self, text: Optional[str]) -> bool:
         """
         Validate input text for processing.
 

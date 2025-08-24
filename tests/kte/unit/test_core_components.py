@@ -4,6 +4,7 @@ Unit tests for KTE core components.
 This module tests the core components of the Keyword Theme Extraction (KTE) module.
 """
 
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -60,28 +61,33 @@ class TestInputHandler:
     def test_process_file_input(self):
         """Test processing file input."""
         handler = InputHandler()
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
+            f.write("File content")
+            temp_file = f.name
 
-        # Mock file processing
-        with patch("kte.utils.file_utils.FileUtils.extract_text_from_file") as mock_extract:
-            mock_extract.return_value = ("File content", {"file_path": "test.txt"})
-
-            result = handler.process_file_input("test.txt")
+        try:
+            result = handler.process_file_input(temp_file)
 
             assert result["text"] == "File content"
             assert result["source_type"] == "file"
-            assert result["metadata"]["file_path"] == "test.txt"
+            assert result["metadata"]["file_path"] == temp_file
+        finally:
+            os.unlink(temp_file)
 
     def test_process_input_with_file(self):
         """Test processing input with file path."""
         handler = InputHandler()
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
+            f.write("File content")
+            temp_file = f.name
 
-        with patch("kte.utils.file_utils.FileUtils.extract_text_from_file") as mock_extract:
-            mock_extract.return_value = ("File content", {"file_path": "test.txt"})
-
-            result = handler.process_input("test.txt")
+        try:
+            result = handler.process_input(temp_file)
 
             assert result["text"] == "File content"
             assert result["source_type"] == "file"
+        finally:
+            os.unlink(temp_file)
 
     def test_process_input_with_text(self):
         """Test processing input with text content."""

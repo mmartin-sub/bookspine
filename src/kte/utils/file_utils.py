@@ -170,7 +170,7 @@ class FileUtils:
         return "\n".join(text_parts).strip()
 
     @staticmethod
-    def validate_input_text(text: str) -> bool:
+    def validate_input_text(text: Optional[str]) -> bool:
         """
         Validate input text for processing.
 

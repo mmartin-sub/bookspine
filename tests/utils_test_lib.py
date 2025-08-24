@@ -9,18 +9,18 @@ import os
 import tempfile
 import time
 from pathlib import Path
+from typing import Any
+
+from fpdf import FPDF
 
 
 class PDFTestUtils:
     """Utilities for creating test PDF files."""
 
     @staticmethod
-    def generate_pdf_content(page_count: int) -> bytes:
+    def generate_pdf_content(page_count: int) -> bytearray:
         """
-        Generate PDF content with specified page count.
-
-        This is a simplified PDF generation for testing purposes.
-        In a real scenario, you'd use a proper PDF library.
+        Generate PDF content with specified page count using fpdf2.
 
         Args:
             page_count: Number of pages to include in the PDF.
@@ -28,27 +28,12 @@ class PDFTestUtils:
         Returns:
             bytes: PDF content as bytes.
         """
-        header = b"%PDF-1.4\n"
-        trailer = b"\ntrailer\n<<\n/Size 4\n/Root 1 0 R\n>>\nstartxref\n175\n%%EOF"
-
-        # Create basic PDF structure
-        catalog_obj = b"1 0 obj\n<<\n/Type /Catalog\n/Pages 2 0 R\n>>\nendobj\n"
-        pages_obj = b"2 0 obj\n<<\n/Type /Pages\n/Kids ["
-
-        # Add page references
-        page_refs = []
+        pdf = FPDF()
         for i in range(page_count):
-            page_refs.append(f"{3 + i} 0 R".encode())
-
-        pages_obj += b" ".join(page_refs) + b"]\n/Count " + str(page_count).encode() + b"\n>>\nendobj\n"
-
-        # Create page objects
-        page_objects = []
-        for i in range(page_count):
-            page_obj = f"{3 + i} 0 obj\n<<\n/Type /Page\n/Parent 2 0 R\n/MediaBox [0 0 612 792]\n>>\nendobj\n".encode()
-            page_objects.append(page_obj)
-
-        return header + catalog_obj + pages_obj + b"".join(page_objects) + trailer
+            pdf.add_page()
+            pdf.set_font("Arial", "B", 16)
+            pdf.cell(40, 10, f"This is page {i + 1}")
+        return pdf.output(dest="S")
 
     @staticmethod
     def create_test_pdf(page_count: int) -> str:
@@ -119,7 +104,7 @@ class PerformanceTestUtils:
             return 0.0  # psutil not available
 
     @staticmethod
-    def measure_execution_time(func, *args, **kwargs) -> tuple[any, float]:
+    def measure_execution_time(func, *args, **kwargs) -> tuple[Any, float]:
         """
         Measure execution time of a function.
 

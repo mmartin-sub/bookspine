@@ -100,7 +100,7 @@ class TestSpineResult:
         """Test that dimensions must be numeric."""
         with pytest.raises(ValueError, match="Width in mm must be a positive number"):
             SpineResult(
-                width_mm="invalid",
+                width_mm="invalid",  # type: ignore
                 width_inches=0.394,
                 width_pixels=118.1,
                 dpi=300,
@@ -112,7 +112,7 @@ class TestSpineResult:
                 width_mm=10.0,
                 width_inches=0.394,
                 width_pixels=118.1,
-                dpi=300.5,  # DPI must be integer
+                dpi=300.5,  # type: ignore  # DPI must be integer
                 book_metadata=self.sample_book_metadata,
             )
 
