@@ -1,19 +1,53 @@
 # Developer Scripts
 
-This directory contains scripts for developers.
+This directory contains helper scripts for maintaining and developing the project. They are designed to be run from the root of the repository.
 
-## Available Scripts
+## Scripts Overview
 
-- `check_pydantic_v1.py`: Checks for Pydantic v1 syntax in the codebase.
-- `check_shell_scripts.sh`: Checks shell scripts for common errors.
-- `config.py`: Helper script for configuration management (details to be added).
-- `download_models.py`: Downloads machine learning models needed for the `kte` package.
-- `update-stubs.py`: A script for managing type stubs.
+### `check_pydantic_v1.py`
 
-## Usage
+*   **Purpose:** Scans the codebase for syntax related to Pydantic v1. This is useful for identifying code that needs to be updated during a migration to Pydantic v2.
+*   **Usage:** Can be run directly.
+    ```bash
+    python scripts/check_pydantic_v1.py
+    ```
 
-These scripts are intended to be run via `hatch`. For example, to run the `download-models` script, you would use:
+### `check_shell_scripts.sh`
 
-```bash
-hatch run download-models
-```
+*   **Purpose:** Lints all shell scripts (`.sh`) in the project using `shellcheck`. This helps ensure that scripts are robust and follow best practices.
+*   **Usage:** Can be run directly from the shell.
+    ```bash
+    bash scripts/check_shell_scripts.sh
+    ```
+
+### `download_models.py`
+
+*   **Purpose:** Downloads and caches the `all-MiniLM-L6-v2` sentence transformer model from Hugging Face. This is a **required step** before running the test suite to avoid rate-limiting errors and performance test failures.
+*   **Usage:** This script should be run via `hatch` to ensure it uses the correct environment and dependencies.
+    ```bash
+    hatch run download-models
+    ```
+
+### `update-stubs.py`
+
+*   **Purpose:** A powerful tool for managing Python type stubs (`.pyi` files). It helps ensure that the project has accurate type information for its dependencies, which improves static analysis and code completion.
+*   **Functionality:**
+    *   Checks which project dependencies have community-provided stub packages available on PyPI (e.g., `types-requests`).
+    *   For dependencies without community stubs, it automatically generates local stubs using `pyright`.
+*   **Usage:** This script is run via `hatch` and has several commands:
+    *   **Check for recommended stubs:**
+        ```bash
+        hatch run stubs-check
+        ```
+    *   **Generate local stubs:**
+        ```bash
+        hatch run stubs-generate
+        ```
+    *   **Generate stubs for a specific package:**
+        ```bash
+        hatch run stubs-generate --only <package-name>
+        ```
+
+### `config.py`
+
+*   **Purpose:** This is not a runnable script. It is a configuration file that contains shared constants (like timeouts) used by other scripts in this directory.

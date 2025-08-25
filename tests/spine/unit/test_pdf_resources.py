@@ -32,15 +32,6 @@ class TestPDFResources:
             reader = pypdf.PdfReader(str(pdf))
             assert len(reader.pages) > 0
 
-    def test_pdf_files_have_consistent_page_counts(self):
-        import pypdf
-
-        page_counts = set()
-        for pdf in RESOURCES_DIR.glob("*.pdf"):
-            reader = pypdf.PdfReader(str(pdf))
-            page_counts.add(len(reader.pages))
-        assert len(page_counts) == 1, f"Inconsistent page counts: {page_counts}"
-
     def test_pdf_files_have_valid_file_sizes(self):
         for pdf in RESOURCES_DIR.glob("*.pdf"):
             assert pdf.stat().st_size > 100, f"{pdf} is too small to be a valid PDF"

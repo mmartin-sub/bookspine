@@ -83,29 +83,27 @@ pytest tests/spine/unit/test_calculator.py
 pytest -v
 ```
 
-### Hugging Face API Token for KTE Tests
+### Important: Pre-downloading Models for KTE Tests
 
-The Keyword Theme Extraction (KTE) tests use Hugging Face models. To avoid rate limiting during testing:
+The Keyword Theme Extraction (KTE) tests require a machine learning model from Hugging Face. To ensure the tests run correctly and reliably, you **must** pre-download and cache this model before running the test suite.
 
-1. **Set up API token** (recommended for CI/CD):
+This prevents two common issues:
+1.  **Hugging Face Rate Limiting:** Repeatedly downloading the model can lead to `HTTP 429` errors.
+2.  **Performance Test Failures:** The time taken to download the model can cause performance tests to time out.
 
-   ```bash
-   export HF_TOKEN=your_token_here
-   ```
+**To download the model, run the following command from the root of the repository:**
 
-2. **Pre-download models** (recommended for local development):
+```bash
+python scripts/download_models.py
+```
 
-   ```bash
-   python scripts/download_models.py
-   ```
+This only needs to be done once.
 
-3. **Run KTE tests specifically**:
+For CI/CD environments or to get higher rate limits, you can also set an API token as an environment variable:
 
-   ```bash
-   pytest tests/kte/ -v
-   ```
-
-**Note**: Without an API token, tests may be skipped due to rate limiting. This is normal and doesn't indicate a failure.
+```bash
+export HF_TOKEN="your_token_here"
+```
 
 ## Test Structure
 
