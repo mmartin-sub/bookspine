@@ -20,6 +20,7 @@ ENV/
 tests/htmlcov/
 .pytest_cache/
 .tox/
+tests/generated/
 
 # Development tools
 .mypy_cache/
