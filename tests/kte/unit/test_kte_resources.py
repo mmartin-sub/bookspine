@@ -13,7 +13,6 @@ import pytest
 
 from kte import ExtractionOptions, extract_keywords
 from kte.utils.file_utils import FileUtils
-
 from tests.test_config import SAMPLES_DIR
 
 RESOURCES_DIR = SAMPLES_DIR
@@ -80,7 +79,7 @@ class TestKTEResources:
                     extract_keywords(text)  # Just call the function to test performance
                     elapsed = time.time() - start
                     # More lenient timeout for first-time model loading
-                    max_time = 60 if "test1.pdf" in str(f) else 30
+                    max_time = 60 if "test1.pdf" in str(f) else 45  # 40s if using the API call
                     assert elapsed < max_time, f"KTE took too long on {f} ({elapsed:.2f}s)"
                 except Exception as e:
                     if "429" in str(e) or "rate limit" in str(e).lower():

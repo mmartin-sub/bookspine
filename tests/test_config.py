@@ -38,6 +38,7 @@ def ensure_test_dirs_exist():
     GENERATED_FILES_DIR.mkdir(parents=True, exist_ok=True)
     DEBUG_ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
 
+
 # You can call this function at the end of the file if you want the directories
 # to be created as soon as this module is imported.
 ensure_test_dirs_exist()

@@ -98,7 +98,8 @@ dev = [
 ]
 # Dependencies for using local sentence-transformer models
 local-models = [
-    "sentence-transformers>=4.0.0",
+    "sentence-transformers>=4.0.0,<6.0.0",
+    "transformers>=4.30.0,<4.52.0", # while transformers is not required directly (used by sentence-transformers, we have incompatible deps and bug issue with keybert and sentence-transformers related to PreTrainedModel
     "torch", "torchvision", "torchaudio",
 ]
 
