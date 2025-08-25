@@ -33,8 +33,8 @@ def format_output(result: "SpineResult", format_type: str = "text") -> str:
         AttributeError: If the result object doesn't have required methods.
 
     Example:
-        >>> from src.bookspine.models.spine_result import SpineResult
-        >>> from src.bookspine.models.book_metadata import BookMetadata
+        >>> from bookspine.models.spine_result import SpineResult
+        >>> from bookspine.models.book_metadata import BookMetadata
         >>> metadata = BookMetadata(page_count=200)
         >>> result = SpineResult(width_mm=10.5, width_inches=0.41,
         ...                     width_pixels=125.0, dpi=300, book_metadata=metadata)

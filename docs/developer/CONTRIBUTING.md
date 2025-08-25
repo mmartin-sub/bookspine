@@ -131,7 +131,7 @@ Example test structure:
 
 ```python
 import pytest
-from src.bookspine.models.book_metadata import BookMetadata
+from bookspine.models.book_metadata import BookMetadata
 
 class TestBookMetadata:
     """Test cases for BookMetadata model."""

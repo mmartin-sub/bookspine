@@ -59,6 +59,10 @@ package-lock.json text merge=npm-merge-driver
 # for the stubs we can generate
 stubs/** linguist-generated=true -diff -merge
 
+# Treat all files in the generated test directory as binary.
+# This prevents git from trying to diff or merge them.
+tests/generated/** -text merge=binary
+
 # git config --global merge.ours.driver true
 # git config --global merge.regenerate-uv-lock.driver "git checkout --ours pyproject.toml && uv lock"
 uv.lock merge=regenerate-uv-lock

@@ -10,9 +10,9 @@ import sys
 from pathlib import Path
 
 try:
-    from src.bookspine import BookMetadata, ConfigLoader, SpineCalculator
-    from src.bookspine.config.config_loader import ConfigurationError
-    from src.bookspine.models.book_metadata import ValidationError
+    from bookspine import BookMetadata, ConfigLoader, SpineCalculator
+    from bookspine.config.config_loader import ConfigurationError
+    from bookspine.models.book_metadata import ValidationError
 except ImportError as e:
     print(f"Error importing bookspine: {e}")
     print("Please install bookspine: uv add bookspine")

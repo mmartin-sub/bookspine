@@ -14,7 +14,9 @@ import pytest
 from kte import ExtractionOptions, extract_keywords
 from kte.utils.file_utils import FileUtils
 
-RESOURCES_DIR = Path(__file__).parent.parent.parent / "resources"
+from tests.test_config import SAMPLES_DIR
+
+RESOURCES_DIR = SAMPLES_DIR
 
 
 class TestKTEResources:

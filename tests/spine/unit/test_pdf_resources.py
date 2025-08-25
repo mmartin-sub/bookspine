@@ -10,7 +10,9 @@ from pathlib import Path
 
 import pytest
 
-RESOURCES_DIR = Path(__file__).parent.parent.parent / "resources"
+from tests.test_config import SAMPLES_DIR
+
+RESOURCES_DIR = SAMPLES_DIR
 
 
 class TestPDFResources:
