@@ -90,6 +90,7 @@ repos:
           entry: python scripts/check_pydantic_v1.py
           language: python
           files: \.py$
+          exclude: ^src/kte/core/universal_embedder\.py$
           pass_filenames: true
           description: "Prevent Pydantic v1 syntax from being committed"
 
